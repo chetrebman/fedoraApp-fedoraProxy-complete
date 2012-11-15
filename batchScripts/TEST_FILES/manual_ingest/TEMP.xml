@@ -1,0 +1,960 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<batch version="2">
+  <batchDescription batchCreationDate="2012-12-20">
+    <literal>Systems Test batch ingest, this description is optional and not used for normal fedora/islandora ingest</literal>
+  </batchDescription>
+  <ingestControl command="A" type="normal"/>
+  <mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/METS/   http://www.loc.gov/standards/mets/mets.xsd    http://www.loc.gov/mods/v3   http://www.loc.gov/standards/mods/v3/mods-3-3.xsd    http://purl.org/dc/elements/1.1/  http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" OBJID="TestOBJID" LABEL="Systems Test - Label">
+    <mets:dmdSec ID="dmdSec_TEST.id1">
+      <mets:mdWrap MIMETYPE="text/xml" MDTYPE="MODS">
+        <mets:xmlData>
+          <mods:mods xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <mods:titleInfo>
+              <mods:title>llama alpaca animal face</mods:title>
+            </mods:titleInfo>
+            <mods:titleInfo type="alternative">
+              <mods:title/>
+              <mods:title/>
+            </mods:titleInfo>
+            <mods:name type="personal">
+              <mods:namePart>Unknown</mods:namePart>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">creator</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="personal">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">contributor</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="corporate">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">creator</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="corporate">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">contributor</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:typeOfResource>still image</mods:typeOfResource>
+            <mods:originInfo>
+              <mods:place>
+                <mods:placeTerm type="text"/>
+              </mods:place>
+              <mods:publisher/>
+              <mods:dateIssued/>
+              <mods:dateCreated keyDate="yes">2012</mods:dateCreated>
+              <mods:copyrightDate/>
+              <mods:dateOther/>
+              <mods:dateCaptured/>
+              <mods:frequency/>
+            </mods:originInfo>
+            <mods:genre authority="marcgt"/>
+            <mods:language>
+              <mods:languageTerm type="text"/>
+            </mods:language>
+            <mods:physicalDescription>
+              <mods:extent/>
+              <mods:form/>
+              <mods:digitalOrigin>born digital</mods:digitalOrigin>
+              <mods:note/>
+            </mods:physicalDescription>
+            <mods:subject>
+              <mods:cartographics>
+                <mods:scale/>
+              </mods:cartographics>
+            </mods:subject>
+            <mods:subject>
+              <mods:cartographics>
+                <mods:coordinates/>
+              </mods:cartographics>
+            </mods:subject>
+            <mods:abstract>Llama alpaca animal face mammal</mods:abstract>
+            <mods:targetAudience/>
+            <mods:note/>
+            <mods:note type="admin"/>
+            <mods:note type="funding"/>
+            <mods:subject>
+              <mods:topic>Llama alpaca animal face mammal</mods:topic>
+            </mods:subject>
+            <mods:subject>
+              <mods:geographic/>
+            </mods:subject>
+            <mods:subject>
+              <mods:temporal/>
+            </mods:subject>
+            <mods:subject>
+              <mods:name type="personal">
+                <mods:namePart/>
+              </mods:name>
+            </mods:subject>
+            <mods:subject>
+              <mods:name type="corporate">
+                <mods:namePart/>
+              </mods:name>
+            </mods:subject>
+            <mods:subject>
+              <mods:genre/>
+            </mods:subject>
+            <mods:relatedItem type="host">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="constituent">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="series">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="preceding">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="succeeding">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:identifier type="local"/>
+            <mods:identifier type="isbn"/>
+            <mods:identifier type="issn"/>
+            <mods:accessCondition type="useAndReproduction">This file (llama-alpaca-animal-face.jpg) is in public domain, not copyrighted, no
+							rights reserved, free for any use. You can use this picture:
+							Llama alpaca animal face for any use including commercial
+							purposes without the prior written permission and without fee or
+							obligation.</mods:accessCondition>
+            <mods:recordInfo>
+              <mods:languageOfCataloging>
+                <mods:languageTerm authority="iso639-2b" type="text">English</mods:languageTerm>
+                <mods:languageTerm authority="iso639-2b" type="code">eng</mods:languageTerm>
+              </mods:languageOfCataloging>
+            </mods:recordInfo>
+          </mods:mods>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:dmdSec>
+    <mets:fileSec>
+      <mets:fileGrp ID="llama-alpaca-animal-face.jpg" USE="master">
+        <mets:file MIMETYPE="image/jpeg" ID="llama-alpaca-animal-face">
+          <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:llama-alpaca-animal-face.jpg"/>
+        </mets:file>
+      </mets:fileGrp>
+      <mets:fileGrp ID="llama-alpaca-animal-face_access.jpg" USE="access">
+        <mets:file MIMETYPE="image/jpeg" ID="llama-alpaca-animal-face_access">
+          <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:llama-alpaca-animal-face_access.jpg"/>
+        </mets:file>
+      </mets:fileGrp>
+    </mets:fileSec>
+    <mets:structMap TYPE="logical">
+      <mets:div TYPE="section" LABEL="large image" ID="large">
+        <mets:fptr FILEID="llama-alpaca-animal-face.jpg"/>
+        <mets:fptr FILEID="llama-alpaca-animal-face_access.jpg"/>
+      </mets:div>
+    </mets:structMap>
+  </mets:mets>
+  <mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/METS/   http://www.loc.gov/standards/mets/mets.xsd    http://www.loc.gov/mods/v3   http://www.loc.gov/standards/mods/v3/mods-3-3.xsd    http://purl.org/dc/elements/1.1/  http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" OBJID="TestOBJID" LABEL="Systems Test - Label">
+    <mets:dmdSec ID="dmdSec_TEST.id1">
+      <mets:mdWrap MIMETYPE="text/xml" MDTYPE="MODS">
+        <mets:xmlData>
+          <mods:mods xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <mods:titleInfo>
+              <mods:title> A group of pronghorns frolic antilocapra americana.</mods:title>
+            </mods:titleInfo>
+            <mods:titleInfo type="alternative">
+              <mods:title/>
+              <mods:title/>
+            </mods:titleInfo>
+            <mods:name type="personal">
+              <mods:namePart>Unknown</mods:namePart>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">creator</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="personal">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">contributor</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="corporate">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">creator</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="corporate">
+              <mods:namePart>U.S. Fish and Wildlife Service</mods:namePart>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">contributor</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:typeOfResource>still image</mods:typeOfResource>
+            <mods:originInfo>
+              <mods:place>
+                <mods:placeTerm type="text"/>
+              </mods:place>
+              <mods:publisher/>
+              <mods:dateIssued/>
+              <mods:dateCreated keyDate="yes">2012</mods:dateCreated>
+              <mods:copyrightDate/>
+              <mods:dateOther/>
+              <mods:dateCaptured/>
+              <mods:frequency/>
+            </mods:originInfo>
+            <mods:genre authority="marcgt"/>
+            <mods:language>
+              <mods:languageTerm type="text"/>
+            </mods:language>
+            <mods:physicalDescription>
+              <mods:extent/>
+              <mods:form/>
+              <mods:digitalOrigin>born digital</mods:digitalOrigin>
+              <mods:note/>
+            </mods:physicalDescription>
+            <mods:subject>
+              <mods:cartographics>
+                <mods:scale/>
+              </mods:cartographics>
+            </mods:subject>
+            <mods:subject>
+              <mods:cartographics>
+                <mods:coordinates/>
+              </mods:cartographics>
+            </mods:subject>
+            <mods:abstract>A group of pronghorns frolic antilocapra americana. </mods:abstract>
+            <mods:targetAudience/>
+            <mods:note/>
+            <mods:note type="admin"/>
+            <mods:note type="funding"/>
+            <mods:subject>
+              <mods:topic>A group of pronghorns frolic antilocapra americana.</mods:topic>
+            </mods:subject>
+            <mods:subject>
+              <mods:geographic/>
+            </mods:subject>
+            <mods:subject>
+              <mods:temporal/>
+            </mods:subject>
+            <mods:subject>
+              <mods:name type="personal">
+                <mods:namePart/>
+              </mods:name>
+            </mods:subject>
+            <mods:subject>
+              <mods:name type="corporate">
+                <mods:namePart/>
+              </mods:name>
+            </mods:subject>
+            <mods:subject>
+              <mods:genre/>
+            </mods:subject>
+            <mods:relatedItem type="host">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="constituent">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="series">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="preceding">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="succeeding">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:identifier type="local"/>
+            <mods:identifier type="isbn"/>
+            <mods:identifier type="issn"/>
+            <mods:accessCondition type="useAndReproduction">This file( pronghorns-frolic.jpg) is in public domain, not copyrighted, no
+							rights reserved, free for any use. You can use this picture:
+							Llama alpaca animal face for any use including commercial
+							purposes without the prior written permission and without fee or
+							obligation.</mods:accessCondition>
+            <mods:recordInfo>
+              <mods:languageOfCataloging>
+                <mods:languageTerm authority="iso639-2b" type="text">English</mods:languageTerm>
+                <mods:languageTerm authority="iso639-2b" type="code">eng</mods:languageTerm>
+              </mods:languageOfCataloging>
+            </mods:recordInfo>
+          </mods:mods>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:dmdSec>
+    <mets:fileSec>
+      <mets:fileGrp ID="pronghorns-frolic.jpg" USE="master">
+        <mets:file MIMETYPE="image/jpeg" ID="pronghorns-frolic">
+          <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:pronghorns-frolic.jpg"/>
+        </mets:file>
+      </mets:fileGrp>
+      <mets:fileGrp ID="pronghorns-frolic_access.jpg" USE="access">
+        <mets:file MIMETYPE="image/jpeg" ID="pronghorns-frolic_access">
+          <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:pronghorns-frolic_access.jpg"/>
+        </mets:file>
+      </mets:fileGrp>
+    </mets:fileSec>
+    <mets:structMap TYPE="logical">
+      <mets:div TYPE="section" LABEL="large image" ID="large">
+        <mets:fptr FILEID="pronghorns-frolic.jpg"/>
+        <mets:fptr FILEID="pronghorns-frolic_access.jpg"/>
+      </mets:div>
+    </mets:structMap>
+  </mets:mets>
+  <mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/METS/   http://www.loc.gov/standards/mets/mets.xsd    http://www.loc.gov/mods/v3   http://www.loc.gov/standards/mods/v3/mods-3-3.xsd    http://purl.org/dc/elements/1.1/  http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" OBJID="TestOBJID" LABEL="Systems Test - Label">
+    <mets:dmdSec ID="dmdSec_TEST.id1">
+      <mets:mdWrap MIMETYPE="text/xml" MDTYPE="MODS">
+        <mets:xmlData>
+          <mods:mods xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <mods:titleInfo>
+              <mods:title>Eland and topi Tanzania mammals animals.</mods:title>
+            </mods:titleInfo>
+            <mods:titleInfo type="alternative">
+              <mods:title/>
+              <mods:title/>
+            </mods:titleInfo>
+            <mods:name type="personal">
+              <mods:namePart>Stolz Gary M, U.S. Fish and Wildlife Service</mods:namePart>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">creator</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="personal">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">contributor</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="corporate">
+              <mods:namePart>U.S. Fish and Wildlife Service</mods:namePart>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">creator</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="corporate">
+              <mods:namePart>U.S. Fish and Wildlife Service</mods:namePart>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">contributor</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:typeOfResource>still image</mods:typeOfResource>
+            <mods:originInfo>
+              <mods:place>
+                <mods:placeTerm type="text"/>
+              </mods:place>
+              <mods:publisher/>
+              <mods:dateIssued/>
+              <mods:dateCreated keyDate="yes">2012</mods:dateCreated>
+              <mods:copyrightDate/>
+              <mods:dateOther/>
+              <mods:dateCaptured/>
+              <mods:frequency/>
+            </mods:originInfo>
+            <mods:genre authority="marcgt"/>
+            <mods:language>
+              <mods:languageTerm type="text"/>
+            </mods:language>
+            <mods:physicalDescription>
+              <mods:extent/>
+              <mods:form/>
+              <mods:digitalOrigin>born digital</mods:digitalOrigin>
+              <mods:note/>
+            </mods:physicalDescription>
+            <mods:subject>
+              <mods:cartographics>
+                <mods:scale/>
+              </mods:cartographics>
+            </mods:subject>
+            <mods:subject>
+              <mods:cartographics>
+                <mods:coordinates/>
+              </mods:cartographics>
+            </mods:subject>
+            <mods:abstract>Eland and topi Tanzania mammals animals. </mods:abstract>
+            <mods:targetAudience/>
+            <mods:note/>
+            <mods:note type="admin"/>
+            <mods:note type="funding"/>
+            <mods:subject>
+              <mods:topic>Eland and topi Tanzania mammals animals.</mods:topic>
+            </mods:subject>
+            <mods:subject>
+              <mods:geographic/>
+            </mods:subject>
+            <mods:subject>
+              <mods:temporal/>
+            </mods:subject>
+            <mods:subject>
+              <mods:name type="personal">
+                <mods:namePart/>
+              </mods:name>
+            </mods:subject>
+            <mods:subject>
+              <mods:name type="corporate">
+                <mods:namePart/>
+              </mods:name>
+            </mods:subject>
+            <mods:subject>
+              <mods:genre/>
+            </mods:subject>
+            <mods:relatedItem type="host">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="constituent">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="series">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="preceding">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="succeeding">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:identifier type="local"/>
+            <mods:identifier type="isbn"/>
+            <mods:identifier type="issn"/>
+            <mods:accessCondition type="useAndReproduction">This file (eland-and-topi-tanzania-mammals-animals.jpg) is in public domain, not copyrighted, no
+							rights reserved, free for any use. You can use this picture:
+							Llama alpaca animal face for any use including commercial
+							purposes without the prior written permission and without fee or
+							obligation.</mods:accessCondition>
+            <mods:recordInfo>
+              <mods:languageOfCataloging>
+                <mods:languageTerm authority="iso639-2b" type="text">English</mods:languageTerm>
+                <mods:languageTerm authority="iso639-2b" type="code">eng</mods:languageTerm>
+              </mods:languageOfCataloging>
+            </mods:recordInfo>
+          </mods:mods>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:dmdSec>
+    <mets:fileSec>
+      <mets:fileGrp ID="eland-and-topi-tanzania-mammals-animals.jpg" USE="master">
+        <mets:file MIMETYPE="image/jpeg" ID="eland-and-topi-tanzania-mammals-animals">
+          <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:eland-and-topi-tanzania-mammals-animals.jpg"/>
+        </mets:file>
+      </mets:fileGrp>
+      <mets:fileGrp ID="eland-and-topi-tanzania-mammals-animals_access.jpg" USE="access">
+        <mets:file MIMETYPE="image/jpeg" ID="eland-and-topi-tanzania-mammals-animals_access">
+          <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:eland-and-topi-tanzania-mammals-animals_access.jpg"/>
+        </mets:file>
+      </mets:fileGrp>
+    </mets:fileSec>
+    <mets:structMap TYPE="logical">
+      <mets:div TYPE="section" LABEL="large image" ID="large">
+        <mets:fptr FILEID="eland-and-topi-tanzania-mammals-animals.jpg"/>
+        <mets:fptr FILEID="eland-and-topi-tanzania-mammals-animals_access.jpg"/>
+      </mets:div>
+    </mets:structMap>
+  </mets:mets>
+  <mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/METS/   http://www.loc.gov/standards/mets/mets.xsd    http://www.loc.gov/mods/v3   http://www.loc.gov/standards/mods/v3/mods-3-3.xsd    http://purl.org/dc/elements/1.1/  http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" OBJID="TestOBJID" LABEL="Systems Test - Label">
+    <mets:dmdSec ID="dmdSec_TEST.id1">
+      <mets:mdWrap MIMETYPE="text/xml" MDTYPE="MODS">
+        <mets:xmlData>
+          <mods:mods xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <mods:titleInfo>
+              <mods:title> Impala African mammal. </mods:title>
+            </mods:titleInfo>
+            <mods:titleInfo type="alternative">
+              <mods:title/>
+              <mods:title/>
+            </mods:titleInfo>
+            <mods:name type="personal">
+              <mods:namePart>Unknown</mods:namePart>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">creator</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="personal">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">contributor</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="corporate">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">creator</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="corporate">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">contributor</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:typeOfResource>still image</mods:typeOfResource>
+            <mods:originInfo>
+              <mods:place>
+                <mods:placeTerm type="text"/>
+              </mods:place>
+              <mods:publisher/>
+              <mods:dateIssued/>
+              <mods:dateCreated keyDate="yes">2012</mods:dateCreated>
+              <mods:copyrightDate/>
+              <mods:dateOther/>
+              <mods:dateCaptured/>
+              <mods:frequency/>
+            </mods:originInfo>
+            <mods:genre authority="marcgt"/>
+            <mods:language>
+              <mods:languageTerm type="text"/>
+            </mods:language>
+            <mods:physicalDescription>
+              <mods:extent/>
+              <mods:form/>
+              <mods:digitalOrigin>born digital</mods:digitalOrigin>
+              <mods:note/>
+            </mods:physicalDescription>
+            <mods:subject>
+              <mods:cartographics>
+                <mods:scale/>
+              </mods:cartographics>
+            </mods:subject>
+            <mods:subject>
+              <mods:cartographics>
+                <mods:coordinates/>
+              </mods:cartographics>
+            </mods:subject>
+            <mods:abstract>Impala African mammal. </mods:abstract>
+            <mods:targetAudience/>
+            <mods:note/>
+            <mods:note type="admin"/>
+            <mods:note type="funding"/>
+            <mods:subject>
+              <mods:topic>Impala African mammal.</mods:topic>
+            </mods:subject>
+            <mods:subject>
+              <mods:geographic/>
+            </mods:subject>
+            <mods:subject>
+              <mods:temporal/>
+            </mods:subject>
+            <mods:subject>
+              <mods:name type="personal">
+                <mods:namePart/>
+              </mods:name>
+            </mods:subject>
+            <mods:subject>
+              <mods:name type="corporate">
+                <mods:namePart/>
+              </mods:name>
+            </mods:subject>
+            <mods:subject>
+              <mods:genre/>
+            </mods:subject>
+            <mods:relatedItem type="host">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="constituent">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="series">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="preceding">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="succeeding">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:identifier type="local"/>
+            <mods:identifier type="isbn"/>
+            <mods:identifier type="issn"/>
+            <mods:accessCondition type="useAndReproduction">This file (impala-african-mammal.jpg) 
+						is in public domain, not copyrighted, no
+							rights reserved, free for any use. You can use this picture:
+							Llama alpaca animal face for any use including commercial
+							purposes without the prior written permission and without fee or
+							obligation.</mods:accessCondition>
+            <mods:recordInfo>
+              <mods:languageOfCataloging>
+                <mods:languageTerm authority="iso639-2b" type="text">English</mods:languageTerm>
+                <mods:languageTerm authority="iso639-2b" type="code">eng</mods:languageTerm>
+              </mods:languageOfCataloging>
+            </mods:recordInfo>
+          </mods:mods>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:dmdSec>
+    <mets:fileSec>
+      <mets:fileGrp ID="impala-african-mammal.jpg" USE="master">
+        <mets:file MIMETYPE="image/jpeg" ID="impala-african-mammal">
+          <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:impala-african-mammal.jpg"/>
+        </mets:file>
+      </mets:fileGrp>
+      <mets:fileGrp ID="impala-african-mammal_access.jpg" USE="access">
+        <mets:file MIMETYPE="image/jpeg" ID="impala-african-mammal_access">
+          <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:impala-african-mammal_access.jpg"/>
+        </mets:file>
+      </mets:fileGrp>
+    </mets:fileSec>
+    <mets:structMap TYPE="logical">
+      <mets:div TYPE="section" LABEL="large image" ID="large">
+        <mets:fptr FILEID="impala-african-mammal.jpg"/>
+        <mets:fptr FILEID="impala-african-mammal_access.jpg"/>
+      </mets:div>
+    </mets:structMap>
+  </mets:mets>
+  <mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/METS/   http://www.loc.gov/standards/mets/mets.xsd    http://www.loc.gov/mods/v3   http://www.loc.gov/standards/mods/v3/mods-3-3.xsd    http://purl.org/dc/elements/1.1/  http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" OBJID="TestOBJID" LABEL="Systems Test - Label">
+    <mets:dmdSec ID="dmdSec_TEST.id1">
+      <mets:mdWrap MIMETYPE="text/xml" MDTYPE="MODS">
+        <mets:xmlData>
+          <mods:mods xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <mods:titleInfo>
+              <mods:title> Oribi African mammal animal ourebia ourebi. </mods:title>
+            </mods:titleInfo>
+            <mods:titleInfo type="alternative">
+              <mods:title/>
+              <mods:title/>
+            </mods:titleInfo>
+            <mods:name type="personal">
+              <mods:namePart>Stolz Gary M, U.S. Fish and Wildlife Service</mods:namePart>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">creator</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="personal">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">contributor</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="corporate">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">creator</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="corporate">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">contributor</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:typeOfResource>still image</mods:typeOfResource>
+            <mods:originInfo>
+              <mods:place>
+                <mods:placeTerm type="text"/>
+              </mods:place>
+              <mods:publisher/>
+              <mods:dateIssued/>
+              <mods:dateCreated keyDate="yes">2012</mods:dateCreated>
+              <mods:copyrightDate/>
+              <mods:dateOther/>
+              <mods:dateCaptured/>
+              <mods:frequency/>
+            </mods:originInfo>
+            <mods:genre authority="marcgt"/>
+            <mods:language>
+              <mods:languageTerm type="text"/>
+            </mods:language>
+            <mods:physicalDescription>
+              <mods:extent/>
+              <mods:form/>
+              <mods:digitalOrigin>born digital</mods:digitalOrigin>
+              <mods:note/>
+            </mods:physicalDescription>
+            <mods:subject>
+              <mods:cartographics>
+                <mods:scale/>
+              </mods:cartographics>
+            </mods:subject>
+            <mods:subject>
+              <mods:cartographics>
+                <mods:coordinates/>
+              </mods:cartographics>
+            </mods:subject>
+            <mods:abstract>Oribi African mammal animal ourebia ourebi. </mods:abstract>
+            <mods:targetAudience/>
+            <mods:note/>
+            <mods:note type="admin"/>
+            <mods:note type="funding"/>
+            <mods:subject>
+              <mods:topic>Oribi African mammal animal ourebia ourebi. </mods:topic>
+            </mods:subject>
+            <mods:subject>
+              <mods:geographic/>
+            </mods:subject>
+            <mods:subject>
+              <mods:temporal/>
+            </mods:subject>
+            <mods:subject>
+              <mods:name type="personal">
+                <mods:namePart/>
+              </mods:name>
+            </mods:subject>
+            <mods:subject>
+              <mods:name type="corporate">
+                <mods:namePart/>
+              </mods:name>
+            </mods:subject>
+            <mods:subject>
+              <mods:genre/>
+            </mods:subject>
+            <mods:relatedItem type="host">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="constituent">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="series">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="preceding">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="succeeding">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:identifier type="local"/>
+            <mods:identifier type="isbn"/>
+            <mods:identifier type="issn"/>
+            <mods:accessCondition type="useAndReproduction">This file (oribi-african-mammal-animal-ourebia-ourebi.jpg) 
+						is in public domain, not copyrighted, no
+							rights reserved, free for any use. You can use this picture:
+							Llama alpaca animal face for any use including commercial
+							purposes without the prior written permission and without fee or
+							obligation.</mods:accessCondition>
+            <mods:recordInfo>
+              <mods:languageOfCataloging>
+                <mods:languageTerm authority="iso639-2b" type="text">English</mods:languageTerm>
+                <mods:languageTerm authority="iso639-2b" type="code">eng</mods:languageTerm>
+              </mods:languageOfCataloging>
+            </mods:recordInfo>
+          </mods:mods>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:dmdSec>
+    <mets:fileSec>
+      <mets:fileGrp ID="oribi-african-mammal-animal-ourebia-ourebi.jpg" USE="master">
+        <mets:file MIMETYPE="image/jpeg" ID="oribi-african-mammal-animal-ourebia-ourebi">
+          <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:oribi-african-mammal-animal-ourebia-ourebi.jpg"/>
+        </mets:file>
+      </mets:fileGrp>
+      <mets:fileGrp ID="oribi-african-mammal-animal-ourebia-ourebi_access.jpg" USE="access">
+        <mets:file MIMETYPE="image/jpeg" ID="oribi-african-mammal-animal-ourebia-ourebi_access">
+          <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:oribi-african-mammal-animal-ourebia-ourebi_access.jpg"/>
+        </mets:file>
+      </mets:fileGrp>
+    </mets:fileSec>
+    <mets:structMap TYPE="logical">
+      <mets:div TYPE="section" LABEL="large image" ID="large">
+        <mets:fptr FILEID="oribi-african-mammal-animal-ourebia-ourebil.jpg"/>
+        <mets:fptr FILEID="oribi-african-mammal-animal-ourebia-ourebi_access.jpg"/>
+      </mets:div>
+    </mets:structMap>
+  </mets:mets>
+  <mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/METS/   http://www.loc.gov/standards/mets/mets.xsd    http://www.loc.gov/mods/v3   http://www.loc.gov/standards/mods/v3/mods-3-3.xsd    http://purl.org/dc/elements/1.1/  http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" OBJID="TestOBJID" LABEL="Systems Test - Label">
+    <mets:dmdSec ID="dmdSec_TEST.id1">
+      <mets:mdWrap MIMETYPE="text/xml" MDTYPE="MODS">
+        <mets:xmlData>
+          <mods:mods xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <mods:titleInfo>
+              <mods:title>South African gemsbok oryx gazella African mammal.</mods:title>
+            </mods:titleInfo>
+            <mods:titleInfo type="alternative">
+              <mods:title/>
+              <mods:title/>
+            </mods:titleInfo>
+            <mods:name type="personal">
+              <mods:namePart>Unknown</mods:namePart>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">creator</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="personal">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">contributor</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="corporate">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">creator</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="corporate">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">contributor</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:typeOfResource>still image</mods:typeOfResource>
+            <mods:originInfo>
+              <mods:place>
+                <mods:placeTerm type="text"/>
+              </mods:place>
+              <mods:publisher/>
+              <mods:dateIssued/>
+              <mods:dateCreated keyDate="yes">2012</mods:dateCreated>
+              <mods:copyrightDate/>
+              <mods:dateOther/>
+              <mods:dateCaptured/>
+              <mods:frequency/>
+            </mods:originInfo>
+            <mods:genre authority="marcgt"/>
+            <mods:language>
+              <mods:languageTerm type="text"/>
+            </mods:language>
+            <mods:physicalDescription>
+              <mods:extent/>
+              <mods:form/>
+              <mods:digitalOrigin>born digital</mods:digitalOrigin>
+              <mods:note/>
+            </mods:physicalDescription>
+            <mods:subject>
+              <mods:cartographics>
+                <mods:scale/>
+              </mods:cartographics>
+            </mods:subject>
+            <mods:subject>
+              <mods:cartographics>
+                <mods:coordinates/>
+              </mods:cartographics>
+            </mods:subject>
+            <mods:abstract> South African gemsbok oryx gazella African mammal.</mods:abstract>
+            <mods:targetAudience/>
+            <mods:note/>
+            <mods:note type="admin"/>
+            <mods:note type="funding"/>
+            <mods:subject>
+              <mods:topic> South African gemsbok oryx gazella African mammal.</mods:topic>
+            </mods:subject>
+            <mods:subject>
+              <mods:geographic/>
+            </mods:subject>
+            <mods:subject>
+              <mods:temporal/>
+            </mods:subject>
+            <mods:subject>
+              <mods:name type="personal">
+                <mods:namePart/>
+              </mods:name>
+            </mods:subject>
+            <mods:subject>
+              <mods:name type="corporate">
+                <mods:namePart/>
+              </mods:name>
+            </mods:subject>
+            <mods:subject>
+              <mods:genre/>
+            </mods:subject>
+            <mods:relatedItem type="host">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="constituent">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="series">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="preceding">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="succeeding">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:identifier type="local"/>
+            <mods:identifier type="isbn"/>
+            <mods:identifier type="issn"/>
+            <mods:accessCondition type="useAndReproduction">This file (south-african-gemsbok-oryx-gazella-african-mammal.jpg) 
+						is in public domain, not copyrighted, no
+							rights reserved, free for any use. You can use this picture:
+							Llama alpaca animal face for any use including commercial
+							purposes without the prior written permission and without fee or
+							obligation.</mods:accessCondition>
+            <mods:recordInfo>
+              <mods:languageOfCataloging>
+                <mods:languageTerm authority="iso639-2b" type="text">English</mods:languageTerm>
+                <mods:languageTerm authority="iso639-2b" type="code">eng</mods:languageTerm>
+              </mods:languageOfCataloging>
+            </mods:recordInfo>
+          </mods:mods>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:dmdSec>
+    <mets:fileSec>
+      <mets:fileGrp ID="south-african-gemsbok-oryx-gazella-african-mammal.jpg" USE="master">
+        <mets:file MIMETYPE="image/jpeg" ID="south-african-gemsbok-oryx-gazella-african-mammal">
+          <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:south-african-gemsbok-oryx-gazella-african-mammal.jpg"/>
+        </mets:file>
+      </mets:fileGrp>
+      <mets:fileGrp ID="south-african-gemsbok-oryx-gazella-african-mammal_access.jpg" USE="access">
+        <mets:file MIMETYPE="image/jpeg" ID="south-african-gemsbok-oryx-gazella-african-mammal_access">
+          <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:south-african-gemsbok-oryx-gazella-african-mammal_access.jpg"/>
+        </mets:file>
+      </mets:fileGrp>
+    </mets:fileSec>
+    <mets:structMap TYPE="logical">
+      <mets:div TYPE="section" LABEL="large image" ID="large">
+        <mets:fptr FILEID="south-african-gemsbok-oryx-gazella-african-mammal.jpg"/>
+        <mets:fptr FILEID="south-african-gemsbok-oryx-gazella-african-mammal_access.jpg"/>
+      </mets:div>
+    </mets:structMap>
+  </mets:mets>
+  
+  
+</batch>

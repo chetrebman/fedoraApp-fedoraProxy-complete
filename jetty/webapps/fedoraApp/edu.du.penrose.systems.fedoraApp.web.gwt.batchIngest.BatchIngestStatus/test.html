@@ -1,0 +1,35 @@
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%@ page import="edu.du.penrose.systems.fedoraApp.ProgramProperties" %>
+<%@ page import="edu.du.penrose.systems.fedoraApp.Constants" %>
+
+<%
+	String batch_set = (String) request.getSession().getAttribute( "BATCH_SET_NAME" );
+%>
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+
+<title>test page</title>
+
+</head>
+
+<body>
+
+  
+<table align="center">
+	<tr>		
+		<td align="center" id="statusBar"> test page </td>		
+	</tr>
+</table>
+	
+
+</body>
+</html>

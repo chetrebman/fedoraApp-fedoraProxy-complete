@@ -1,0 +1,220 @@
+a.b.c   Where a is Major version #, b is Minor version #, c is Bug fix # 
+
+1.60 10-08-2012
+    Add null check in edu.du.penrose.systems.fedoraApp.util.FedoraAppUtil.getRemoteConfiguredInstitutions(), it was choking on a lost+found directory
+    Improve logging in edu.du.penrose.systems.fedoraApp.tasks.WorkerTimer.doIt() 
+    
+1.59 10-18-2012
+	Code cleanup. Remove unused JMS and ECTD code
+	
+1.58 10-12-2012
+	Finish MIXED ingest
+	
+1.57 10-10-2012
+	Fix incorrect mets generated when etd has multiple PCOs
+	Fix not always detecting correct MIME type for ETD PCOs
+	Fix using mets:filePtr to mark failed PCO file location instead of using FLocat@LOCTYPE
+	Fix assuming the " instead of " or ' surrounding xml attribute values
+	Created a new Thread semaphore tasks.
+	New mixed ingest type where collection and content model are specified in the mets
+	If mimetype not correctly detected, automatically insert one for .avi .mov and .zip
+	Rename duplicate files during a remote ingest so that it will not block a subsequent ingest.
+	'Save Settings' button now forwards to the ingest status page.
+	Add total time to ingest report.
+	Pco's moved to the completed folder have a unique timestamp appended to them, along with _REMOTE if from a remote ingest.
+	Add ssl smtp email.
+	Add viewRunningIngests page.
+	
+1.56 7-19-2012
+	Add Bagit functionality.
+	Fix 'set ingest object inactive' not being saved to properties file.
+	Add ingest time to ingest report.
+	
+1.55 7-3-2012
+   Since an update contains the pid within the OBJID, we now perform a check during update to make sure pid starts with 
+   the institution(namespace) and that it it in the correct collection, based on collection found in the {batchSet}.properties 
+   file.
+   Allow the disabling of the remote ingest REST response by setting restReplyHost or restReplyPort to empty in {batchSet}_REMOTE.properties
+   file
+   
+1.54 6-21-2012
+   Add ability to remote ingest any remote enabled collection
+   Rels-Ext utilities look for both isMemberOf and isMemberOfCollection
+   Numerous remote ingest fix's
+   
+1.53 5-21-2012
+   added adr3=true to adr handle server call.
+     to edu.du.penrose.systems.fedoraApp.batchIngest.bus.FedoraAppBatchIngestController.registerHandle()
+   
+1.52 4-13-12
+   Change the default handler server in batchIngest.properties
+   
+1.51 4-5-2012
+   Add AmdSec IDs to PID report
+   Do not change object state (I,A,D) when performing any type of update.
+   
+1.50 3-27-2012
+   Set object after ingest either active/inactive based on user checkbox setting.
+   Sort rel-ext child collection map results.
+   
+1.49 3-19-2012
+   Add baggit (look for zip file in work directory)
+   
+1.48  9-20-2011
+   Fix rels-ext for adding hasModel relationship
+   
+1.47  9-18-2011
+   Switch from WebContext to MyServletContextListener to fix setting webAppRoot for log4j
+   re-factor FedoraBatchIngestController, to ease maintenance and improve performance.
+   fix status screen to display updated files in addition to added files
+   
+1.46 8-5-2011
+   Get list of collections based on institution. ie codu:top instead of islandora:top
+   
+1.45 7-18-2011
+   Collection and content model can now be specified on ingest form, but overwrote if specified in ingest files.
+   
+1.44  7-14-2011
+   Must specify collection and contentModel in version two batch files.
+   Specify info:fedora/pid for rels-ext subjects instead of just pid see api-m.addRelationship()
+ 
+   Perform a rest response to ectd server when running the ectd task.
+   Remove selection islandora/fedora collection via ingest file and move it to the ingest file.
+   
+   RELEASE NOTE:
+   	1) Must create new tasksTemp directory and specify it in the batchIngest.properties file.
+ 
+1.43 05-02-2011
+   Start listeners each time ectd background task is started. if jms is enabled. This allows for creating a new
+   		listener if there was a previous error.
+   		
+1.42 04-22-2011
+	JMS Fix - clear any previous listener before registering a new one.
+	
+1.42 04-21-2011
+   Fix for running two Spring app's in one tomcat.
+   
+1.41 4-20-2011
+	Add jms capability to the ectd task.
+	Change ECTD task to respond to a jms message instead of using a timer task.
+
+1.40 4-15-2011
+   Add update capability.
+   RELEASE NOTE:
+     1) You CANNOT update a datastream label!!
+     
+1.30 03-30-2011
+   Improved Error handling.
+   RELEASE NOTES:
+   1) Added failedBatchFile directory (see batchIngest.properties)
+   2) Version 1 batch files still work, however the split xml files are NOT compatable. You must process all split 
+      files before installing this version.
+   
+1.29 03-29-2011
+   Add second email to ectd properties file.
+   Add smtp settings to ectd properties file.
+   
+1.28 03-07-2011
+   Add super cool taskEnable.properties files. These tasks perform batchIngest for certain applications ie ECTD.
+  	 The background process work in concert with the fedoraProxy web application, which distributes ingest files
+  	 to a batch_space ingest directory tree.
+   
+1.27 01-12-2011
+   Improve error message when non existent property in batchIngest.properties
+   
+1.26 01-05-2011
+   Fix thumbnail datastream on ECTD batch ingest.
+   
+1.25 12-13-2010
+   Query resource index for collections and display in drop-down on ingest form.
+   RELEASE NOTES:
+     1) The fedora user and password have been added to the batchIngest.properties file.
+           This allows background processes to connect to fedora. Web access still requires the user
+           to input the user name and password.
+     
+1.24 12-9-2010
+   Ignore files in the updates directory.
+   Add collection and model info to the institutions properties file (saves last selected by web-gui and is used by 
+   background processes).
+   
+  RELEASE NOTES: 
+     1) Add collectionPID and modelPID to institutions properties file to enable Islandora ingest.
+   
+1.23 12-7-2010
+   Add email address to ectd.properties.
+   Send email on ECTDworker exception.
+   
+1.22 12-7-2010
+	Keep batch process in queue if email fails.
+	Fix (disable) the sending emails when no process exists.
+	
+  RELEASE NOTES: 
+     1) a new directory was created '/batch_space/INSTITUTION/BATCH_SET/images' which holds thumbnail images
+                    to upload to Fedora. The ECTD batch set needs the image pdf.png
+     2) a new properties must be added to the batchIngest.properties file pointing the new images directory
+                    'BATCH_INGEST_IMAGES_FOLDER=images'
+     3) Uses the new FEDORA 3.4 api,  (may be in fedora 3.3)
+                 
+1.21 12-6-2010 
+   Add ECTD ingest task.
+   Add ability to create fedora relationships.
+   Add Islandora ingest.
+   
+1.20 09-02-2010
+    Change location of foxml schema in metsToFOXml.xsl (fedora moved it).
+
+1.19 03-30-2010
+	Bug fix for foxml schema check using new javax.xml.validation.SchemaFactory.
+	
+1.18 03-29-2010
+	Replace SAXBuilder which was changing 'type' attribute to value of 'simple' Now using 
+	org.w3c.dom.Document and converting it to JDOM prior to XSLT transform (to FOXML). Now
+	using javax.xml.validation.SchemaFactory for schema check.
+	
+1.17 03-11-2010
+    Fix error message when fedora object not found.
+    
+1.16 02-22-2010
+	Add drop-down for selecting work file.
+	Add new directory structure for updates.
+	Add and disable checkbox for enforcing strict updates (updates disabled).
+	
+1.15 02-18-2010
+    Uses newer GWT version
+    Fix GWT call url (fix intermitent errors)
+    Refactor to work with ingester application.
+
+1.14.0 9-1-2008
+	Flag error correctly when Dublin Core section of METS is missing
+    Add an md5.txt file, that is generated at the main location of the PCOs and 
+    then compared to the Fedora MD5 for each 'Primary Context File'.
+    
+1.13.1, 8-21-08
+	Add GPL information and COPYING file to source code.
+    Remove some test code from the web.xml file. 
+    Fix some documentation.
+
+1.13, 7-24-08
+	use GWT/ajax for updating status page.
+	add forced Halt to status page, 10 seconds after normal stop.
+	improve logging when batch ingest loop completes.
+	improve logging during login and logout.
+
+1.12.2, 7-3-08
+	Force all newly created XML files (when splitting a file to METS for example)
+	to be written in UTF-8
+	
+1.12.1, 7-2-08 
+	Fix calculated checksum, by padding "0"s in front for 32 digits, to match Fedora. 
+
+1.12, 7-1-08 
+	Perform checksum validation of PCO files against their new Fedora datastreams.
+	Add <location> element, to enclose handle URL, if it does not exist.
+	Better error reporting when splitting mets files.
+
+1.1, 6-23-08
+	Add version page.
+	Fix Handle URL location from mets/mods to mods datastream
+	Add default document type line, to top of files that are split, in case it is not provided.
+
+1.0, Functional batch ingest.

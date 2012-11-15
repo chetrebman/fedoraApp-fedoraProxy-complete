@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>fedoraApp</display-name>
+
+	<context-param><!--  for running multiple springs on one tomcat -->
+		<param-name>webAppRootKey</param-name>
+		<param-value>fedoraApp</param-value>
+	</context-param>
+
+ 	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/jsp/error.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/WEB-INF/jsp/error.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.RuntimeException</exception-type>
+		<location>/WEB-INF/jsp/error.jsp</location>
+	</error-page>
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+	</welcome-file-list>
+	
+
+	
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/config/log4j.properties</param-value>
+	</context-param>
+
+<!--  Removed because it was too slow to initialize webapproot property for log4j
+	<listener>
+		<listener-class>
+			org.springframework.web.util.WebAppRootListener
+		</listener-class>
+	</listener>
+-->
+
+	<!-- requestContextListener enables request, session and global scoping of beans -->
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			edu.du.penrose.systems.util.MyServletContextListener
+		</listener-class>
+	</listener>
+	<listener>	    
+		<!-- log4j listener must be after MyServletContextListener -->
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	
+     <!--  default config for ContextLoaderListener is ApplicationContext.xml, unless specified with a contextConfigLocation section-->
+	<listener> 
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+
+
+	<servlet>
+		<servlet-name>dispatcher</servlet-name> <!--Will use dispatcher-servlet.xml -->
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+
+	
+	<!-- Define servlet to handle rpc services -->
+	<servlet> <!-- gwt services -->
+		<servlet-name>exporter</servlet-name> <!--Will use exporter-servlet.xml -->
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>exporter</servlet-name>
+		<url-pattern>/myRPCServicesURL/*</url-pattern>
+	</servlet-mapping>
+	
+</web-app>

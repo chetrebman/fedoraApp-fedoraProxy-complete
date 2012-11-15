@@ -1,0 +1,39 @@
+{
+    "Send-To-Name" : {
+            "requiredValue" : ""
+        },
+    "Send-To-Phone" : {
+            "requiredValue" : ""
+        },
+    "Send-To-Email" : {
+            "requiredValue" : ""
+        },
+    "External-Identifier" : {
+            "fieldRequired" : false
+        },
+    "Media-Identifiers" : {
+            "fieldRequired" : false
+        },
+    "Number-Of-Media-Shipped" : {
+            "fieldRequired" : false            
+        },
+    "Additional-Equipment" : {
+            "fieldRequired" : false
+        },
+    "Ship-Date" : {
+            "fieldRequired" : false,
+        },
+    "Ship-Method" : {
+            "fieldRequired" : false
+        },
+    "Ship-Tracking-Number" : {
+            "fieldRequired" : false
+        },
+    "Ship-Media" : {
+            "fieldRequired" : false
+        },
+    "Ship-To-Address" : {
+            "fieldRequired" : false,
+            "requiredValue" : ""
+        } 
+}

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!--
+		the application context definition for the fedoraApp DispatcherServlet
+	-->
+
+	<bean id="appConstants" class="edu.du.penrose.systems.fedoraApp.FedoraAppConstants" />
+
+	<!--
+		<bean id="programProperties"
+		class="edu.du.penrose.systems.fedoraApp.ProgramFileProperties"
+		lazy-init="default" autowire="default" dependency-check="default"/>
+	-->
+   
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/hello.htm">fedoraAppController</prop>
+				<prop key="/error.htm">fedoraAppController</prop>
+				<prop key="/index.htm">fedoraAppController</prop>
+				<prop key="/viewRunningIngests.htm">fedoraAppController</prop>
+				<prop key="/batchIngestReport.htm">fedoraAppController</prop>
+				<prop key="/batchIngestPidReport.htm">fedoraAppController</prop>
+				<prop key="/versions.htm">fedoraAppController</prop>
+
+				<prop key="/getFedoraObj.htm">getFedoraObjForm</prop>
+
+				<prop key="/searchFedora.htm">searchFedoraForm</prop>
+
+				<prop key="/loginFedora.htm">loginFedoraForm</prop>
+
+				<prop key="/logout.htm">loginFedoraForm</prop>
+				<prop key="/viewFO.htm">fedoraAppController</prop>
+
+				<prop key="/batchIngest.htm">batchIngestForm</prop>
+
+				<!-- this url need for accessing google toolkit script via jsp page.-->
+				<prop
+					key="/edu.du.penrose.systems.fedoraApp.web.gwt.batchIngest.BatchIngestStatus/batchIngestStatus.htm">batchIngestStatusForm</prop>
+
+			</props>
+		</property>
+
+		<property name="interceptors">
+			<list>
+				<ref bean="securityManager" />
+			</list>
+		</property>
+
+	</bean>
+
+
+	<bean id="securityManager"
+		class="edu.du.penrose.systems.fedoraApp.web.bus.security.SecurityManager" />
+
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+		<!--
+			<property name="prefix"> <value>/WEB-INF/jsp/</value> </property>
+			<property name="suffix"> <value>.jsp</value> </property>
+		-->
+	</bean>
+
+	<bean id="fedoraAppController"
+		class="edu.du.penrose.systems.fedoraApp.web.FedoraAppController" />
+
+
+	<!-- Form Controller for the batchIngest page   -->
+	<bean id="getBatchIngestOptionsValidator"
+		class="edu.du.penrose.systems.fedoraApp.batchIngest.data.BatchOptionsValidator" />
+	<bean id="batchIngestForm"
+		class="edu.du.penrose.systems.fedoraApp.web.bus.BatchIngestFormController">
+		<property name="sessionForm">
+			<value>true</value>
+		</property>
+		<property name="commandName">
+			<value>batchIngestOptions</value>
+		</property>
+		<property name="commandClass">
+			<value>edu.du.penrose.systems.fedoraApp.batchIngest.data.BatchIngestOptions
+			</value>
+		</property>
+		<property name="validator">
+			<ref bean="getBatchIngestOptionsValidator" />
+		</property>
+		<property name="formView">
+			<value>/WEB-INF/jsp/batchIngest.jsp</value>
+		</property>
+		<property name="successView">
+			<value>/edu.du.penrose.systems.fedoraApp.web.gwt.batchIngest.BatchIngestStatus/batchIngestStatus.jsp
+			</value>
+		</property>
+	</bean>
+
+	<!-- Form Controller for the batchIngest Status page   -->
+	<bean id="batchIngestStatusForm"
+		class="edu.du.penrose.systems.fedoraApp.web.bus.BatchIngestStatusFormController">
+		<property name="sessionForm">
+			<value>false</value>
+		</property>
+		<property name="commandName">
+			<value>batchIngestOptions</value>
+		</property>
+		<property name="commandClass">
+			<value>edu.du.penrose.systems.fedoraApp.batchIngest.data.BatchIngestOptions
+			</value>
+		</property>
+		<property name="formView">
+			<value>/edu.du.penrose.systems.fedoraApp.web.gwt.batchIngest.BatchIngestStatus/batchIngestStatus.jsp
+			</value>
+		</property>
+		<property name="successView">
+			<value>/edu.du.penrose.systems.fedoraApp.web.gwt.batchIngest.BatchIngestStatus/batchIngestStatus.jsp
+			</value>
+		</property>
+	</bean>
+
+	<!-- Validator and Form Controller for the getFedorObj page   -->
+	<bean id="getFedoraObjValidator"
+		class="edu.du.penrose.systems.fedoraApp.web.data.GetFedorObjValidator" />
+	<bean id="getFedoraObjForm"
+		class="edu.du.penrose.systems.fedoraApp.web.bus.GetFedorObjFormController">
+		<property name="sessionForm">
+			<value>false</value>
+		</property>
+		<property name="commandName">
+			<value>getFedoraObjCmd</value>
+		</property>
+		<property name="commandClass">
+			<value>edu.du.penrose.systems.fedoraApp.web.data.GetFedoraObjCmd
+			</value>
+		</property>
+		<property name="validator">
+			<ref bean="getFedoraObjValidator" />
+		</property>
+		<property name="formView">
+			<value>/WEB-INF/jsp/getFedoraObj.jsp</value>
+		</property>
+		<property name="successView">
+			<value>/WEB-INF/jsp/hello.jsp</value>
+		</property>
+	</bean>
+
+	<!-- Validator and Form Controller for the searchFedora page   -->
+	<bean id="searchFedoraValidator"
+		class="edu.du.penrose.systems.fedoraApp.web.data.SearchFedoraValidator" />
+	<bean id="searchFedoraForm"
+		class="edu.du.penrose.systems.fedoraApp.web.bus.SearchFedoraFormController">
+		<property name="sessionForm">
+			<value>false</value>
+		</property>
+		<property name="commandName">
+			<value>searchFedoraCmd</value>
+		</property>
+		<property name="commandClass">
+			<value>edu.du.penrose.systems.fedoraApp.web.data.SearchFedoraCmd
+			</value>
+		</property>
+		<property name="validator">
+			<ref bean="searchFedoraValidator" />
+		</property>
+		<property name="formView">
+			<value>/WEB-INF/jsp/searchFedora.jsp</value>
+		</property>
+		<property name="successView">
+			<value>/WEB-INF/jsp/searchResults.jsp</value>
+		</property>
+	</bean>
+
+	<!-- Validator and Form Controller for the loginFedora page   -->
+	<bean id="loginFedoraValidator"
+		class="edu.du.penrose.systems.fedoraApp.web.bus.security.LoginFedoraValidator" />
+	<bean id="loginFedoraForm"
+		class="edu.du.penrose.systems.fedoraApp.web.bus.security.LoginFedoraFormController">
+		<property name="sessionForm">
+			<value>false</value>
+		</property>
+		<property name="commandName">
+			<value>loginFedoraCmd</value>
+		</property>
+		<property name="commandClass">
+			<value>edu.du.penrose.systems.fedoraApp.web.bus.security.LoginFedoraCmd
+			</value>
+		</property>
+		<property name="validator">
+			<ref bean="loginFedoraValidator" />
+		</property>
+		<property name="formView">
+			<value>/WEB-INF/jsp/loginFedora.jsp</value>
+		</property>
+		<property name="successView">
+			<value>/WEB-INF/jsp/hello.jsp</value>
+		</property>
+	</bean>
+
+
+</beans>

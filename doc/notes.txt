@@ -1,0 +1,188 @@
+
+AN UN-ORGANIZED LIST OF NOTES FOR fedoraApp AND fedoraProxy 
+November 2012
+
+*) batch ingest bypasses normal islandora ingest and will not generate derivitaves without messaging service
+
+*) PCO access control based on OPEN_ or CLOSED_ mentioned in FedoraProxyIngest_2.pdf is not yet available.
+
+*) There are a few junit tests in..
+	edu.du.penrose.systems.fedoraApp.tests
+	edu.du.penrose.systems.fedoraProxy.tests
+
+*) The last foxmlForIngest.xml file ingested is always left in the batch_space{institution}{batchSet}/work directory
+
+*) in the batch_space{institution}{batchSet}/{batchSet}.properties batch_space{institution}{batchSet}/{batchSet}.properties
+       batch_space{institution}{batchSet}/{batchSet}_REMOTE.properties  an batch_space{institution}{batchSet}/{batchSet}_TASH.properties files 
+         ALL email properites, except successEmail_2 must be filled out including emailFromAddress,before the email will work
+
+*) fedoraApp DOES NOT YET USE THE REST interface, it used the older client admin code, therfore..
+
+If they are not set, the following system properites get set  
+System.setProperty( "javax.net.ssl.trustStore", "\\fedora\\client\\truststore" );      
+System.setProperty( "javax.net.ssl.trustStorePassword", "tomcat" );
+in edu.du.penrose.systems.fedoraApp.util.FedoraAppUtil
+
+Perhaps it can be removed?
+^^^^^^^^^^^^^^
+
+     
+*) Once you create a batchSpace directory tree, you normally not be putting files into it,
+    except for a batch files in the 'work' dir or METS files in the 'mets/new' or 'mets/updates' dir.
+
+*) Ythe top of the batch file must look like this..
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<batch version="2">
+	<ingestControl command="u" type="meta" /> NOTE the command and type will vary, see docs/BatchIngestXML.txt
+
+*) Remote ingest files get "batch_" prepended and "_REMOTE" appended to them, so that they do not interfer with manual ingests.
+   Background task ingest files get "batch_" prepended and "_TASK" appended to them, so that they do not interfer with manual or remote ingests.
+
+*) The  <mets:dmdSec ID="dmdAlliance"> collection and pid in a batch file only works inside of a 'mixed' {batchSet}.
+
+*) The mets/new mets/update directories are just for clarity, each file in 'mets/new' or 'mets/updates' still need an ingest command.
+             <!--<ingestControl command="u" type="meta" />-->  or <!--<ingestControl command="A" type="normal"/>-->
+
+*) in the main batch file <ingestControl command="u" type="meta" /> becomes a comment at the top of a 'mets/new' or mets/update
+     individual mets file ie <!--<ingestControl command="u" type="meta" /> --> 
+
+*) Collection and ContentModel can be set in two places 
+   7a) the dmdSec of a 'mixed' tree
+   7b) the batch_space/insitution/batchSet/batchSet.properties for a manual or remote ingest , You can set the propeties through the gui
+   
+*) The manual Fedora Administrator is different then the Remote administror. The manual is static in FedoraAppBatchIngest.class, the
+    remote is static in IngestWorker.class
+    
+*)  The batchIngestStatus page allows anyone that logged into Fedora to check allows anyone to check status, this needs to become finer grained
+    in the future.
+
+*) When you disable the allow_manual_and_remote_ingests in the batchIngest.properties file, you are only disabling the checkBox!! it wil 
+continue to use the settings in the {batchSet}.proeprties file.
+
+*) Batch files sent to fedoraProxy will be renamed with the current timestamp;
+
+*) A Remote ingest needs three things.
+   a) a batchSet_REMOTE.properies file
+   b) enabled in taskEnable.properties
+   c) Collection enabled in fedoraProxy websiteCollection.properties  SETTING THE COLLECTION IN FEDORAAPP DOES NOT SET THIS.
+
+*) fedoraProxy checks for a valid command line and if good adds a 'batch_' prefix, _REMOTE.xml suffix before
+      inserting the batch file into the batch_space.../work directory
+ 
+*) When performing an update the pid must be in the collection and start with the correct namespace (instituion ie codu:)
+      (specified in the {batchSet}_REMOTE.properites file.
+ 
+*) The institutiion MUST match the namespace, the batchSet does not have to match the collection name.
+
+*) For an add we get the Fedora name space from the institution and the collection  from the user GUI or the 
+     {batchSet}_REMOTE.properties file UNLESS the {batchSet} == mixed in which case we look for a <mets:dmdSec ID="dmdAlliance"> 
+      in each mets file, the collection and contentModel must exist and you are restricted to the institution.
+
+*) Back doors may exist so use a punched ip address for remote ingests.
+
+*) When doing a remote post, if the attached file already exists in the files directory, the post fails with an error,  when complete the file
+will be moved to the completed files folder and given a unique name (a timestamp prefix is added)
+
+*) For remote HTTP POST ingest the batch file must be embeded in a "batch_" form part and end with either .zip or .xml. 
+   
+*) A REMOTE or Background TASK batch file name must contain a 'batch_' OR [_batch) string, this get put in automatically in a 
+   remote operation, and prepended to a bagit.zip file as well, however the batch file inside the bag my not have the prefix, 
+   so this is added by the bag extractor.
+
+*) The batch_ identifier is not needed for a manual ingest, however it will ingore *_REMOTE and *_TASK batch files.
+
+*)You can rename A bagit.zip file after it is created
+
+*) tasks use the taskTemp directory, it takes two timer calls to process them, one to create and one to move them. If the task are turned
+off with files in the taskTemp directory they will not get processed.
+
+*) Only one command line per batch file!! all others are ignored.
+
+*) Remove disable version 1 batch files?
+
+*) You can just copy files to the mets/new or mets/update directory without a batch file, but each file must contain a command line
+<!--<ingestControl command="u" type="meta" />-->
+
+*) the correct way to shut down fedoraApp is disable remoteTasks in taskEnable.properties and then wait for all ingest to complete
+   in the global 'view ingests' screen
+
+*) In the mets part of a batch file the stuctMap works as follows 
+
+   <mets:fileGrp ID="llama-alpaca-animal-face.jpg" USE="master"> 
+      ID becomes the datastream id and USE becomes the  datastream label 
+   <mets:fptr FILEID="llama-alpaca-animal-face.jpg"></mets:fptr> 
+     FILEID must match the fileGrp ID
+
+*) The Documentation doesn't talk about the global handle and it is disabled by default, the setup will probably be unique for 
+    everyone but you can find the code in edu.du.penrose.systems.fedoraApp.batchIngest.bus.FedoraAppBatchIngestController.java
+
+*) If fedoraProxy is set up but fedoraApp does not have a {batchSet}_REMOTE.properties file, fedorProxy with accept the batch file 
+    deposited in the batch_space but fedoraApp will never process it, (it as if remote ingests were turned off in the taskEnable.properties)
+	
+*) In fedroaApp, we handle existing files different for manual and remote ingests. For manual we throw an exception, for remote
+    we add the FedoraAppConstants.DUPLICATE_FILE_SUFFIX and continue processing. This allows an external user the
+    chance to recover from a failed ingest by posting a fixed bagit file with the same name. Otherwise someone would
+    have to to log onto the server to "fix" things.	 
+    The _DUPLICATE files are left in their directories, (either work or files) to make them visible.
+	 
+    This is different then fedoraProxy, when doing a post that contains the actual PCOs (no bagit), if the PCO exists in the 
+    {institution}/{batchSet}/files directory, a 500 error is thrown. We don't what to break an ingest that hasn't even started 
+    by posting another ingest with the same PCO  name.
+	 
+*) If 'Move Ingested PCOs to Completed Folder after Ingest.' is selected the PCO will be moved to the files dir with a unique timestamp
+    appended, along with _REMOTE appended if it is a remote ingest, The PCOs are NEVER DELETED!!
+
+*) When emailing resuls a single email is sent, the pid report is appended to the ingest report in a single email.
+
+
+   If the name of the batch file is batch_bagit_8-3-2012_REMOTE.zip it will create a directory called bagit_8-3-2012
+   then the files will be transfered, finally after which the normal batch process will begin.
+   Both the zip and the batch file will end up in the completedBatchFiles directory. NOTE: the batch file will be installed in 
+   {instituions}{batchSet}/batch_B063_BatchIngest_08012012_REMOTE.xml 
+
+*) The bagit bag is the only file posted, with an HTTP POST formPart name of 'batch_', it contains the URL of all PCOs including
+   the batchfile itself. FedoraProxy.IngestController will deposit the bag in the {institution}{batchSet}/work directory.The bagit 
+   extractor creates the bag in the work directory and transfers all files into this directory stucture, validates the
+   bad and then moves all files to thier correct location and then deletes the bagit directory and moves the bagit file to the  
+   batch_space{institutions}{batchSet}/completedBatchFiles, leaving the batch file in work dir and the PCOs in the files dir, ready
+   for fedoraApp to process.
+
+*) If bagit validation fails the *.zip file is moved to the batch_space{institutions}{batchSet}/failedBatchFiles 
+
+BAGIT INFO you can safely ingore
+*) Bagit is the library and bagger is for gui, we use the bagit libraray and have the necessary bagger files in the src directory.
+Since it is copied from the GUI, bagit needs to init the json profiles it copies the profiles in src/gov/loc/repository/bagger/profiles 
+(actually from the dir with compiled classes) to ~/bagger I created an empty profile so that it would be happy. You can then latter set
+the profile in DefaultBag.setProfile() which I am not using in fedoraApp since we are doing an extract.
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+*)  <mets:mdWrap MIMETYPE="text/xml" MDTYPE="MODS">  MDTYPE is used for the datastream id
+       The METS id is hard coded in metsToFOXml.xsl
+
+*) REPORTS
+edu.du.penrose.systems.fedoraApp.reports.PidReport
+edu.du.penrose.systems.fedoraApp.reports.BatchIngestReport
+
+*) fedoraProxy can also act as a proxy for a SOLR host. See edu.du.penrose.systems.fedoraProxy.web.bus.Solr_select
+
+*) if a fatal error occurs (such as not being able to connect to fedora), everything stops and files are left where they they, if the error occurs in a remote ingest, 
+   ALL REMOTE INGESTS WILL BE DISABLED until re-enabled through the GUI. FedoraProxy will still recieve batchs and queue them up in the batch_space file system.
+
+*) If you can't login to fedora you can't login to fedoraApp to see status.
+
+*) This system will hang forever if unable to login to Fedora or Download a bagit file, Howver the gui is updated and the user can abort the
+operation.
+
+*) When performing a manual batch ingest, first select institution, this comes from batch_space directory tree, you see that it is busy, this because
+ app is querying resource index, looking for collections below {institution}:top, Note how the label is replaced with the actual pid, Below is 'please select'
+ click on this to move back up. below please select are the next level of sub collections. you can then drill down into sub-COLLECTIONS, collections must
+ have a COLLECTION_POLICY to be recognized as a collection. The app now looks for content models within listed in the COLLECTION_POLICY data stream of
+ the collection.     <content_model dsid="ISLANDORACM" name="Electronic Thesis or Dissertation" namespace="codu:1" pid="codu:coduETD"></content_model>
+ 
+*) FedoraApp does use WEB-INF/config/metsToFoxl.xsl is used however it is out of data, all new additions were made progromatically in
+   in edu.du.penrose.systems.fedoraApp.batchIngest.bus.FedoraAppBatchIngestController.java 
+
+
+
+

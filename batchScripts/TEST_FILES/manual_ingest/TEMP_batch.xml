@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<batch version="2">
+  <batchDescription batchCreationDate="2012-12-20">
+    <literal>Systems Test batch ingest, this description is optional and not used for normal fedora/islandora ingest</literal>
+  </batchDescription>
+  <ingestControl command="A" type="normal"/>
+
+</batch>

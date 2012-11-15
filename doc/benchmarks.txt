@@ -1,0 +1,12 @@
+TIFFs***********
+
+12.8 gig
+843 objects.
+
+bagit file transfer 22 minutes
+
+validate 3 minutes
+
+Fedora ingest 36 minutes
+
+Total time 61 minutes

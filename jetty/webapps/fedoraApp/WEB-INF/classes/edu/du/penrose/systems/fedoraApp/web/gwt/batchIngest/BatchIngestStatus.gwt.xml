@@ -1,0 +1,16 @@
+<module>
+
+	<inherits name='com.google.gwt.user.User'/>
+
+	
+	<entry-point class='edu.du.penrose.systems.fedoraApp.web.gwt.batchIngest.client.BatchIngestStatus'/>
+  
+	<source path="client"/>
+	<source path="server"/>
+
+<!-- 
+   done in spring. See WEB-INF\exporter-servlet.xml
+     <servlet path="/BatchIngestThreadManagerService" class="edu.du.penrose.systems.fedoraApp.web.gwt.batchIngest.serverImpl.BatchIngestStatusServiceImpl" /> 
+   -->
+
+</module>

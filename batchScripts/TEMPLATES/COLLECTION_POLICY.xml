@@ -1,0 +1,10 @@
+<collection_policy name="Map collection" xmlns="http://www.islandora.ca"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.islandora.ca http://syn.lib.umanitoba.ca/collection_policy.xsd">
+  <content_models>
+    <content_model dsid="ISLANDORACM" name="Islandora Content Model" namespace="demo" pid="demo:fedoraAppCM"/>
+  </content_models>
+  <relationship>isMemberOfCollection</relationship>
+  <search_terms>
+    <term field="dc:title">title</term>
+  </search_terms>
+</collection_policy>

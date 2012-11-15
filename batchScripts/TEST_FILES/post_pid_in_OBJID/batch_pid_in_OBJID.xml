@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<batch version="2">
+  <batchDescription batchCreationDate="2012-17-07">
+    <literal>Systems Test batch ingest, this description is optional and not used by the normal fedora/islandora ingest</literal>
+  </batchDescription>
+<ingestControl command="A" type="pidInOBJID"/>
+  <mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/METS/   http://www.loc.gov/standards/mets/mets.xsd    http://www.loc.gov/mods/v3   http://www.loc.gov/standards/mods/v3/mods-3-3.xsd    http://purl.org/dc/elements/1.1/  http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" OBJID="demo:205" LABEL="Systems Test - Label">
+    <mets:dmdSec ID="dmdSec_TEST.id1">
+      <mets:mdWrap MIMETYPE="text/xml" MDTYPE="MODS">
+        <mets:xmlData>
+          <mods:mods xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <mods:titleInfo>
+              <mods:title>Beaver at snow</mods:title>
+            </mods:titleInfo>
+            <mods:titleInfo type="alternative">
+              <mods:title/>
+              <mods:title/>
+            </mods:titleInfo>
+            <mods:name type="personal">
+              <mods:namePart>Unknown</mods:namePart>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">creator</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="personal">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">contributor</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="corporate">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">creator</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:name type="corporate">
+              <mods:namePart/>
+              <mods:role>
+                <mods:roleTerm authority="marcrelator" type="text">contributor</mods:roleTerm>
+              </mods:role>
+            </mods:name>
+            <mods:typeOfResource>still image</mods:typeOfResource>
+            <mods:originInfo>
+              <mods:place>
+                <mods:placeTerm type="text"/>
+              </mods:place>
+              <mods:publisher/>
+              <mods:dateIssued/>
+              <mods:dateCreated keyDate="yes">2012</mods:dateCreated>
+              <mods:copyrightDate/>
+              <mods:dateOther/>
+              <mods:dateCaptured/>
+              <mods:frequency/>
+            </mods:originInfo>
+            <mods:genre authority="marcgt"/>
+            <mods:language>
+              <mods:languageTerm type="text"/>
+            </mods:language>
+            <mods:physicalDescription>
+              <mods:extent/>
+              <mods:form/>
+              <mods:digitalOrigin>born digital</mods:digitalOrigin>
+              <mods:note/>
+            </mods:physicalDescription>
+            <mods:subject>
+              <mods:cartographics>
+                <mods:scale/>
+              </mods:cartographics>
+            </mods:subject>
+            <mods:subject>
+              <mods:cartographics>
+                <mods:coordinates/>
+              </mods:cartographics>
+            </mods:subject>
+            <mods:abstract>Beaver at snow.</mods:abstract>
+            <mods:targetAudience/>
+            <mods:note/>
+            <mods:note type="admin"/>
+            <mods:note type="funding"/>
+            <mods:subject>
+              <mods:topic>Beaver at snow.</mods:topic>
+            </mods:subject>
+            <mods:subject>
+              <mods:geographic/>
+            </mods:subject>
+            <mods:subject>
+              <mods:temporal/>
+            </mods:subject>
+            <mods:subject>
+              <mods:name type="personal">
+                <mods:namePart/>
+              </mods:name>
+            </mods:subject>
+            <mods:subject>
+              <mods:name type="corporate">
+                <mods:namePart/>
+              </mods:name>
+            </mods:subject>
+            <mods:subject>
+              <mods:genre/>
+            </mods:subject>
+            <mods:relatedItem type="host">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="constituent">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="series">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="preceding">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:relatedItem type="succeeding">
+              <mods:titleInfo>
+                <mods:title/>
+              </mods:titleInfo>
+            </mods:relatedItem>
+            <mods:identifier type="local"/>
+            <mods:identifier type="isbn"/>
+            <mods:identifier type="issn"/>
+            <mods:accessCondition type="useAndReproduction">This image: Beaver at snow is one of free public domain pictures / images, (copyright free - safe images / photographs).</mods:accessCondition>
+            <mods:recordInfo>
+              <mods:languageOfCataloging>
+                <mods:languageTerm authority="iso639-2b" type="text">English</mods:languageTerm>
+                <mods:languageTerm authority="iso639-2b" type="code">eng</mods:languageTerm>
+              </mods:languageOfCataloging>
+            </mods:recordInfo>
+          </mods:mods>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:dmdSec>
+    <mets:fileSec>
+      <mets:fileGrp ID="beaver-at-snow.jpg" USE="master">
+        <mets:file MIMETYPE="image/jpeg" ID="beaver-at-snow">
+          <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:beaver-at-snow.jpg"/>
+        </mets:file>
+      </mets:fileGrp>
+      <mets:fileGrp ID="beaver-at-snow_access.jpg" USE="access">
+        <mets:file MIMETYPE="image/jpeg" ID="beaver-at-snow_access">
+          <mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:beaver-at-snow_access.jpg"/>
+        </mets:file>
+      </mets:fileGrp>
+    </mets:fileSec>
+    <mets:structMap TYPE="logical">
+      <mets:div TYPE="section" LABEL="large image" ID="large">
+        <mets:fptr FILEID="beaver-at-snow.jpg"/>
+        <mets:fptr FILEID="beaver-at-snow_access.jpg"/>
+      </mets:div>
+    </mets:structMap>
+  </mets:mets>
+</batch>

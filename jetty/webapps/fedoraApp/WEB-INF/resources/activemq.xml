@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:amq="http://activemq.apache.org/schema/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://activemq.apache.org/schema/core activemq.xsd
+    http://activemq.apache.org/camel/schema/spring activemq.xsd">
+
+	<broker id="LocalActiveMQBroker" useJmx="true" xmlns="http://activemq.apache.org/schema/core"  persistent="true">
+		<destinationPolicy>
+			<policyMap>
+				<policyEntries>
+					<!-- Set the following policy on all queues using the '>' wildcard -->
+					<policyEntry queue=">">
+						<deadLetterStrategy>
+							<!--
+								Use the prefix 'DLQ.' for the destination name, and make the DLQ
+								a queue rather than a topic
+							-->
+							<individualDeadLetterStrategy
+								queuePrefix="DLQ." useQueueForQueueMessages="true" />
+						</deadLetterStrategy>
+					</policyEntry>
+				</policyEntries>
+			</policyMap>
+		</destinationPolicy>
+		
+		<networkConnectors>
+			<!-- by default just auto discover the other brokers -->
+			<networkConnector name="default" uri="multicast://default" />
+			<!--
+				<networkConnector name="host1 and host2"
+				uri="static://(tcp://host1:61616,tcp://host2:61616)"
+				failover="true"/>
+			-->
+
+		</networkConnectors>
+		<persistenceAdapter>
+			<amqPersistenceAdapter directory="activemq-data"
+				maxFileLength="32mb" />
+		</persistenceAdapter>
+		
+		
+		<transportConnectors>
+			<transportConnector name="defaulttrans" uri="tcp://localhost:61616"
+				discoveryUri="multicast://default" />
+		</transportConnectors>
+		
+	</broker>
+</beans>

@@ -1,0 +1,44 @@
+body,td,a,div,.p {
+    font-family:"lucida grande", arial, sans-serif;
+}
+.statusBtnPanel {
+ /*   background-color:yellow;
+      color: black;*/
+    font-weight: bold;
+    
+    padding: 5px;
+}
+.statusBtnPanel * {
+    padding: 3px;
+}
+.highlight {
+    font-weight:bold;
+    background-color: white;
+    color: #660099;
+}
+
+.gwt-Button {
+   border-style:outset;
+   font-weight: bold;
+}
+
+.gwt-Button:hover {
+    font-weight: bold;
+    color: white;
+    background-color: #FF0084;
+}
+.gwt-RadioButton {
+    font-weight: bold;
+}
+.gwt-RadioButton label:hover {
+    background-color: #3366CC;
+    color: white;
+}
+#output-container .gwt-HTML {
+    font-size: 80%;
+}
+#output-container .gwt-HTML img {
+    float: left;
+    width: 260px;
+    height: 260px;
+}

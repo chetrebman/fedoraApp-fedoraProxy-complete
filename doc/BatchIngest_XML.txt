@@ -1,0 +1,78 @@
+4/4/2012  		Chet Rebman
+
+BELOW is a version 2 batch file. It must have eiter an <add> OR an <update> command.
+An add command can have a type of normal or replyWithPid, replyWithPid only applies to a 
+remote ingest (sent to fedoraProxy). The batchDescription is currently 
+being used to create the FACTS what's new page, and is ignored otherwise. There is an 
+optional dmdAlliance section for spectifying collection and content model.
+
+NOTES:
+
+a | b denotes a OR b
+(0..1) denotes can occur 0 to 1 times.
+PCO means primary content object.
+
+----
+
+<?xml version="1.0" encoding="UTF-8"?>
+<batch version="2">  (1)
+
+   <batchDescription  batchCreationDate="2010-03-30"> (0..1)
+      <literal>Description for FACTS what's new page</literal>
+   </batchDescription>
+
+   <ingestControl command="a" type="normal | replyWithPid | pidInOBJID /> (0..1) <! see type note above -->
+   <ingestControl command="u" type="all | meta | pco" /> (0..1)
+
+   <mets:mets> (1..N)
+      <mets:dmdSec ID="dmdAlliance"> (0..1)
+         <mets:mdWrap MIMETYPE="text/xml" MDTYPE="OTHER" LABEL="Custom Alliance Metadata">
+            <mets:xmlData>
+               <islandora collection="codu:38046" contentModel="codu:coduBasicObject" />
+            </mets:xmlData>
+         </mets:mdWrap>
+      </mets:dmdSec>
+   </mets:mets>
+
+</batch>
+
+-----BELOW is a Backward Compatable <batch> file.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<batch> <!-- ASSUMES a version two add is being performed.-->
+
+  <mets:mets> (1..N)
+	<mets:dmdSec ID="dmdAlliance"> (0..1)
+		<mets:mdWrap MIMETYPE="text/xml" MDTYPE="OTHER" LABEL="Custom Alliance Metadata">
+			<mets:xmlData>
+				<islandora collection="codu:38046" contentModel="codu:coduBasicObject" />
+			</mets:xmlData>
+		</mets:mdWrap>
+	</mets:dmdSec>
+   </mets:mets>
+
+</batch>
+
+----After the batch file is split, the following comment MUST be present in any ADD file found in the ../mets/new 
+directory.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<mets:mets>
+<!--<ingestControl command="a" />-->
+   ....
+</mets>
+
+----After the batch file is split, the following comment MUST be present in any UPDATE file found in the ../mets/update 
+directory. The type is  'meta' for updating the metadata, 'pco' for updating PCO datastreams or 'all for updating
+everything.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<mets:mets>
+<!--<ingestControl command="u" type="all|meta|pco"/>--> 
+   ....
+</mets>
+
+
+
+
+  

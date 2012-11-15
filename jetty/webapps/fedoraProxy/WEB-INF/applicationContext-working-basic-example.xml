@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:security="http://www.springframework.org/schema/security"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		 http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-3.0.3.xsd ">
+
+
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
+<!-- dunno, the above is needed, because we defined dispatcher mapping in web.xml? see 13.11.2 spring docs 2.5-->
+
+	<!-- Scans within the base package of the application for @Components to configure as beans -->
+	<context:component-scan base-package="edu.du.penrose.systems.fedoraProxy" />
+
+	<!-- 
+		SystemWebContext will get loaded with the context since it implements ServletContextAware
+	-->
+
+	<bean id="SystemsWebContext"
+		class="edu.du.penrose.systems.util.MyServletContextListener" />
+		
+	 <security:global-method-security secured-annotations="enabled" />
+	
+	<security:authentication-manager>
+       <security:authentication-provider>
+         <security:user-service>
+             <!-- <security:user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" /> -->  
+             <security:user name="ectd"  password="testingPW"  authorities="ROLE_ECTD" />
+          </security:user-service>
+       </security:authentication-provider>
+    </security:authentication-manager>
+
+  
+    <security:http auto-config='true'>
+    <!--  this url will be in addition to the one that are configured with @security -->
+       <security:intercept-url pattern="/hello.html" access="ROLE_USER" />
+    </security:http>
+	
+
+
+</beans>

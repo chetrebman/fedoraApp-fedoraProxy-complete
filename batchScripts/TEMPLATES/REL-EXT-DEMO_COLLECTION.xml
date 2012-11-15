@@ -1,0 +1,6 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/demo:fedoraAppCollection">
+    <fedora-model:hasModel rdf:resource="info:fedora/demo:fedoraAppCM" xmlns:fedora-model="info:fedora/fedora-system:def/model#"/>
+    <isMemberOfCollection rdf:resource="info:fedora/demo:top" xmlns="info:fedora/fedora-system:def/relations-external#"/>
+  </rdf:Description>
+</rdf:RDF>

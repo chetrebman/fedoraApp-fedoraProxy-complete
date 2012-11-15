@@ -1,0 +1,6 @@
+**November 2012**
+
+Replace GWT
+Replace all Fedora API-A and API-M with REST
+Restrict view based on user for fedoraApp/viewRunningIngests.htm
+Make it easier to use replace MODS, it is currently a combination of XSLT and Code to transfrom into FOXML

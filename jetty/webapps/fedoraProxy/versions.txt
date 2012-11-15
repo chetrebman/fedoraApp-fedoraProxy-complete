@@ -1,0 +1,44 @@
+a.b.c   Where a is Major version #, b is Minor version #, c is Bug fix # 
+
+0.30 10-18-2012
+  Make sure HttpMethod.releaseConnection() is getting called (getting to many open files errors)
+  Add fedoraProxy.properties file.
+  
+0.29 10-10-2012
+  New fedoraApp_util.jar (refactor)
+  
+0.28 7-17-2012
+   Add handling of bagit batch files for ingest.it post
+   
+0.27 7-2-2012
+   Changes to work with generic ingests, not just ectd.
+   
+0.26 5-12-2012
+   fedoraApp library with rels-ext fix
+   Rels-Ext now uses isMemberOfCollection instead of isMemberOf f
+
+0.25  01-35-2012
+	Add Alora test web site for fernando
+	
+0.24  10-25-2011
+  New fedoraApp library with rels-ext fix .
+  
+0.23  10-06-2011
+  Switch from WebContext to MyServletContextListener to fix setting webAppRoot for log4j
+  Add solr proxy
+  Add rel-ext proxy
+   
+0.22 6-23-2011
+   Aggregate feature added, hard coded in Hanya Holm aggregate collection
+   
+0.21 03-30-2011
+   Fix for running two Spring app's in one tomcat.
+   
+0.20 04-20-2011 Add the ability to request that the pid(s) be returned immediately upon a form post, even though ingest has not yet completed.
+
+0.10 03-31-2011 Add version information to home page
+
+03-30-2011 First ingest by CTL
+
+beta 1 12-06-2010 
+

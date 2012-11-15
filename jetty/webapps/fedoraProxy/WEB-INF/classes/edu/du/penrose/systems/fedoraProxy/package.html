@@ -1,0 +1,18 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head></head>
+  <body>
+  The top package for the Penrose Systems FedoraProxy. In addition to providing proxy for accessing Fedora Datasstreams,
+  FedoraProxy also provides a frontend for the fedoraApp batch ingest application. The action when a standard batch ingest
+  file is posted to http://lib-ram.cair.du.edu/fedoraProxy/ingest.ectd depends on the value of batchCmd element.
+  <br></br> <br></br>
+  For an add of type normal, the pco's are put into the files directory and the batch file into the work directory. FedoraApp
+  then uses a background process to start a ingest process, which processes the batch file in the work directory normally.
+  <br></br> <br></br>
+  For an add of type replyWithPid, the batch file is split into the mets/new directory with the reserved pid at the top, embeded in
+  a comment. FedoraApp then uses a background process to perform the ingest, but skips the normal splitting of the the batch ingest file.
+  Once FedoraApp starts the ingest the only difference in processing the met/new directory is that instead of getting the pid from
+  Fedora to embed in the FOXML, the pis is taken from the comment that proceeds the mets element in each file to be ingested.
+  
+  </body>
+</html>

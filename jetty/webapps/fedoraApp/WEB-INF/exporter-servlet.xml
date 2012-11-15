@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+
+<beans> 
+
+	<!-- 
+		Example on how to use the RPCServiceExporter. This one is a controller that behaves just like a simple
+		Spring controller and needs to be mapped to URLs the same way any other Spring controller is mapped.
+		This would in most cases be the SimpleUrlHandlerMapping.
+	-->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<map>
+				<entry key="/batchIngestThreadManagerRPC" value-ref="RPCbatchIngestThreadManager" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- GWT google tool kit services -->
+
+	<bean id="BatchIngestStatusServiceImpl"
+		class="edu.du.penrose.systems.fedoraApp.batchIngest.bus.BatchIngestThreadManager" />
+
+	<bean id="RPCbatchIngestThreadManager" class="org.gwtwidgets.server.spring.GWTRPCServiceExporter">
+		<!--
+			Reference to the service bean which should be exported via RPC to the
+			web.
+		-->
+		<property name="service" ref="BatchIngestStatusServiceImpl" />
+		<!--
+			If our Test service was not a 100% pure POJO but also implemented the
+			ServiceTest interface then we wouldn't have to specify it here. Note
+			that you can provide multiple interface names, as long as your
+			service has the corresponding methods with a matching signature.
+		-->
+		<property name="serviceInterfaces">
+			<value>
+				edu.du.penrose.systems.fedoraApp.web.gwt.batchIngest.server.BatchIngestThreadManagerService
+			</value>
+		</property>
+	</bean>
+	
+</beans>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+
+<beans> 
+
+	<!-- 
+		SystemWebContext will get loaded with the context since it implements ServletContextAware
+	-->	
+		<!--  TIMER TASKS BELOW -->
+
+	<bean id="processAutomatedBatchIngest" class="edu.du.penrose.systems.fedoraApp.tasks.WorkerTimer">
+	</bean>      
+
+	<bean id="jobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="processAutomatedBatchIngest" />
+		<property name="targetMethod" value="doIt" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<bean id="fedoraApTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail">
+			<ref local="jobDetail" />
+		</property>
+		<property name="startDelay">
+			<value>10000</value> <!-- 60000 = one minute  10000 worked great -->
+		</property>
+		<property name="repeatInterval"> 
+			<value>15000</value>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="fedoraApTrigger" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>/WEB-INF/resources/errors</value>
+				<value>/WEB-INF/resources/messages</value>
+				<value>/WEB-INF/resources/forms</value>
+			</list>
+		</property>
+		<property name="cacheSeconds">
+			<value>1</value>
+		</property>
+	</bean>
+
+</beans>

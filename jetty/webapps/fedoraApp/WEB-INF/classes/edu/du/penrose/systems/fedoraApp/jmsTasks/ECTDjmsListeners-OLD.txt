@@ -1,0 +1,596 @@
+package edu.du.penrose.systems.fedoraApp.jmsTasks;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.net.URL;
+import java.util.Date;
+
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.mail.MessagingException;
+
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.params.HttpClientParams;
+import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+import edu.du.penrose.systems.exceptions.FatalException;
+import edu.du.penrose.systems.fedora.client.Administrator;
+import edu.du.penrose.systems.fedoraApp.batchIngest.bus.BatchIngestThreadManager;
+import edu.du.penrose.systems.fedoraApp.batchIngest.bus.FedoraAppBatchIngestController;
+import edu.du.penrose.systems.fedoraApp.batchIngest.data.BatchIngestOptions;
+import edu.du.penrose.systems.fedoraApp.batchIngest.data.BatchIngestURLhandler;
+import edu.du.penrose.systems.fedoraApp.batchIngest.data.ExtRelList;
+import edu.du.penrose.systems.fedoraApp.batchIngest.data.TransformMetsData;
+import edu.du.penrose.systems.fedoraApp.tests.JmsTest.ActiveMQListener;
+import edu.du.penrose.systems.fedoraApp.web.gwt.batchIngest.server.StatusData;
+import edu.du.penrose.systems.fedoraApp.FedoraAppConstants;
+import edu.du.penrose.systems.fedoraApp.ProgramProperties;
+import org.springframework.context.ApplicationContext;
+
+import edu.du.penrose.systems.fedoraApp.FedoraAppConstants;
+import edu.du.penrose.systems.util.FileUtil;
+
+import edu.du.penrose.systems.fedoraApp.ProgramFileProperties;
+import edu.du.penrose.systems.util.SendMail;
+
+/**
+ * Worker to run a ECTD batch. 
+ * <br>
+ * NOTE:The entire work queue is processed, not one at a time. 
+ * NOTE: The log files are not deleted. TBD
+ * 
+ * @author Chet
+ *
+ */
+public class ECTDjmsListeners-OLD {
+
+	static private ProgramProperties ectdProperties = null;
+
+	static private final String institution        = FedoraAppConstants.DU_INSTITUTION_NAME;
+	static private final String batchSet           = FedoraAppConstants.ECTD_BATCHSET_NAME;
+
+	// we save the Listener's just to make debug a little easier.
+	static private EctdResultsListener        ectdBatchResultsListener       = null;
+	static private EctdStartNewBatchListener  ectdStartNewBatchListener      = null;
+
+	private edu.du.penrose.systems.fedora.client.Administrator administrator = null; 
+	private ProgramProperties programProperties                              = null;
+
+	private final String fedoraContext = FedoraAppConstants.DU_INSTITUTION_NAME;
+
+	private final String HOST = "130.253.33.105";
+	private final String PORT = "8085";
+	private final String CMD  = "/library/updatePid";
+	private final String KEY  = "6b476c7e50726949347162353c7e3d7271336e6f3e3e4c2d703d762d24";
+
+	private String myName = "Name Not Set"; // set by caller.
+
+	private final String host     = "localhost";
+	private final int    port     =  8080;
+	private final String protocol = "http";
+
+	private String fedoraUser = ProgramProperties.getInstance( FedoraAppConstants.getProgramPropertiesURL() ).getProperty( FedoraAppConstants.FEDORA_USER_PROPERTY );	
+	private String fedoraPwd  = ProgramProperties.getInstance( FedoraAppConstants.getProgramPropertiesURL() ).getProperty( FedoraAppConstants.FEDORA_PWD_PROPERY );
+
+	private final String emailIngestSubjectTxt  = "Ectd Ingest Report";
+
+	private String emailSuccessAddress = "chet.rebman@du.edu"; // these are defaults, overridden by properties file.
+	private String emailFailureAddress = "chet.rebman@du.edu";
+	private String emailSuccessAddress_2 = null;
+	private String emailFailureAddress_2 = null;
+
+	private String smtpServerHost = null;
+	private String smtpUser       = null;
+	private String smtpPassword   = null;
+
+	private String jmsServer = null;
+	private String jmsPort   = null;
+
+	/** Logger for this class and subclasses */
+	protected final Log logger = LogFactory.getLog(getClass());
+
+	// Constructor
+	public ECTDjmsListeners() // needs to be public for testing.
+	{
+		this.initProgramProperties();
+
+		this.emailSuccessAddress   = ectdProperties.getProperty( FedoraAppConstants.ECTD_SUCCESS_EMAIL_PROPERTIES );
+		this.emailFailureAddress   = ectdProperties.getProperty( FedoraAppConstants.ECTD_FAILURE_EMAIL_PROPERTIES );
+		this.emailSuccessAddress_2 = ectdProperties.getProperty( FedoraAppConstants.ECTD_SUCCESS_EMAIL_2_PROPERTIES );
+		this.emailFailureAddress_2 = ectdProperties.getProperty( FedoraAppConstants.ECTD_FAILURE_EMAIL_2_PROPERTIES );
+
+		this.smtpServerHost = ectdProperties.getProperty( FedoraAppConstants.ECTD_SMTP_SERVER_PROPERTY );
+		this.smtpUser       = ectdProperties.getProperty( FedoraAppConstants.ECTD_SMTP_SERVER_USER_PROPERTY );
+		this.smtpPassword   = ectdProperties.getProperty( FedoraAppConstants.ECTD_SMTP_SERVER_PWD_PROPERTY );
+
+		// Create jms message consumer 
+		try {
+			this.jmsServer   = programProperties.getProperty( FedoraAppConstants.JMS_SERVER_PROPERTY );
+			this.jmsPort     = programProperties.getProperty( FedoraAppConstants.JMS_PORT_PROPERTY );
+			String brokerURL = "tcp://"+this.jmsServer+":"+this.jmsPort;
+
+			// init. jms connection and session
+
+			ConnectionFactory factory = new ActiveMQConnectionFactory(brokerURL);
+
+			Connection connection = factory.createConnection();
+
+			connection.start();
+			Session session          = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE );
+
+			// start email results listener
+			Destination resultsQ  = session.createQueue( FedoraAppConstants.JMS_ECTD_RESULTS_Q );
+			MessageConsumer batchFinishedConsumer = session.createConsumer( resultsQ );
+
+			ectdBatchResultsListener = new EctdResultsListener();		
+			batchFinishedConsumer.setMessageListener( null );
+			batchFinishedConsumer.setMessageListener( ectdBatchResultsListener );
+
+			// start new batch listener
+			Destination                startQ  = session.createQueue( FedoraAppConstants.JMS_ECTD_START_Q );
+			MessageConsumer batchStartConsumer = session.createConsumer( startQ );
+
+			ectdStartNewBatchListener = new  EctdStartNewBatchListener();
+			batchStartConsumer.setMessageListener( null );
+			batchStartConsumer.setMessageListener( ectdStartNewBatchListener );
+
+		} catch ( JMSException e) {
+
+			logger.error( "Unable to connect to JMS server:"+e);
+		}
+
+	} // constructor
+
+	/**
+	 * 
+	 * @return true is a new batch is started, false if another batch is already running
+	 */
+	public boolean tryToStartNewBatchThread()
+	{
+		try 
+		{
+			if ( this.administrator == null )
+			{
+				this.initFedoraAdministrator();
+			}
+			if ( this.programProperties == null )
+			{
+				this.initProgramProperties();
+			}
+
+			if ( BatchIngestThreadManager.isBatchSetThreadExists( batchSet ) )
+			{
+				StatusData currentStatus = BatchIngestThreadManager.getAllBatchSetStatus( batchSet );
+
+				if ( currentStatus != null && currentStatus.isRunning() )
+				{ 
+					/**
+					 * A batch is currently running, so do nothing. We do not confirm that the messge was recieved so it will be sent again.
+					 */
+					return false; 	 
+				}    	
+
+				BatchIngestThreadManager.removeBatchset( batchSet );
+			}
+
+			BatchIngestOptions batchOptions = new BatchIngestOptions();
+
+			ECTDjmsListeners.setECTDbatchOptions( batchOptions );
+
+			this.startNewBatchThread( batchOptions );// My not execute if another process got started first, see above.
+		} 
+		catch (Exception e) 
+		{
+			String errorMsg = "ECTD worker ERROR: "+e.getMessage();
+			this.logger.error( errorMsg );
+
+			String[] emailToList   = new String[]{ emailFailureAddress, emailFailureAddress_2 };
+
+			try {
+				this.sendEmail( emailToList, "ECTD Ingest Failure", errorMsg, this.emailSuccessAddress );
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
+		}
+
+		return true; // a new batch ingest thread has been started.
+	}
+
+	private void initFedoraAdministrator() throws Exception
+	{
+		/**
+		 * Set the keystore location and password, since the environment variables
+		 * do not seem to be being used, by the code supplied with the fedora
+		 * dist. client.
+		 */
+		System.setProperty( "javax.net.ssl.trustStore", "\\fedora\\client\\truststore" ); // TBD
+		System.setProperty( "javax.net.ssl.trustStorePassword", "tomcat" );
+
+		administrator = new edu.du.penrose.systems.fedora.client.Administrator( protocol, port, host, fedoraUser, fedoraPwd );
+	}
+
+	private void initProgramProperties()
+	{
+
+		fedoraUser = ProgramProperties.getInstance( FedoraAppConstants.getProgramPropertiesURL() ).getProperty( FedoraAppConstants.FEDORA_USER_PROPERTY );	
+		fedoraPwd      = ProgramProperties.getInstance( FedoraAppConstants.getProgramPropertiesURL() ).getProperty( FedoraAppConstants.FEDORA_PWD_PROPERY );
+
+		File propertiesFile = new File( FedoraAppConstants.getProgramPropertiesURL().getFile() );
+		this.programProperties = new edu.du.penrose.systems.fedoraApp.ProgramFileProperties( propertiesFile );
+
+		this.programProperties = new ProgramFileProperties( new File( FedoraAppConstants.getProgramPropertiesURL().getFile() ) );
+		this.ectdProperties = new ProgramFileProperties( new File( FedoraAppConstants.getECTDpropertiesURL().getFile() ) );
+	}
+
+	/**]
+	 * Sets the following batchOptions...
+	 * 
+	 * batchOptions.setBatchDescription( "ECTD generic ingest" ); // set from batch file?
+	 * batchOptions.setBatchSet( FedoraAppConstants.ECTD_BATCHSET_NAME );
+	 * batchOptions.setClearCompletedFiles( false );
+	 * batchOptions.setClearFailedFiles( false );
+	 * batchOptions.setClearLogFile( false );
+	 * batchOptions.setInstitution(  FedoraAppConstants.DU_INSTITUTION_NAME );
+	 * batchOptions.setSplitXMLinWorkDirToMets( false );
+	 * batchOptions.setStopOnError(   ectdProperties.file (if file not found, set to false)
+	 * batchOptions.setStrictUpdates( ectdProperties.file (if file not found, set to true)
+	 * batchOptions.setValidatePCOchecksums( ectdProperties.file (if file not found, set to false)
+	 * Set the ExtRel list for fedora VERY IMPORTANT so that it gets ingested into correct islandora collection.  	 
+	 * 
+	 * @param batchOptions
+	 * @return the batchOptions object
+	 */
+	public static BatchIngestOptions setECTDbatchOptions( BatchIngestOptions batchOptions )
+	{
+		batchOptions.setBatchDescription( "ECTD generic ingest" ); // set from batch file?
+		//batchOptions.setBatchIngestDate( xxxx ); // what's new not used only by facts.
+		// batchOptions.setBatchIsUpdates( false ); // depreciated.
+		batchOptions.setBatchSet( batchSet );
+		// batchOptions.setBatchType(batchType); // set from batch file.
+		batchOptions.setClearCompletedFiles( false );
+		batchOptions.setClearFailedFiles( false );
+		batchOptions.setClearLogFile( false );  // TBD When do these get removed?
+		batchOptions.setInstitution(institution);
+		// batchOptions.setSplitXMLfileName(); // set from disk read
+		batchOptions.setSplitXMLinWorkDirToMets( false );
+
+		if ( ectdProperties != null )
+		{
+			batchOptions.setStopOnError( Boolean.getBoolean( ectdProperties.getProperty( FedoraAppConstants.BATCH_OPTION_STOP_ERROR_PROPERTY) ));
+			batchOptions.setStrictUpdates( Boolean.getBoolean( ectdProperties.getProperty( FedoraAppConstants.BATCH_OPTION_ENFORCE_STRICT_UPDATES_CHECK_PROPERTY) ));
+			batchOptions.setValidatePCOchecksums(  Boolean.getBoolean( ectdProperties.getProperty( FedoraAppConstants.BATCH_OPTION_VALIDATE_PCO_CHECKSUMS_PROPERTY) )); 
+		}
+		else {
+			// if this method is called from another app, such as fedoraProxy there will be no ectd.propeties file. 
+			batchOptions.setStopOnError( false );
+			batchOptions.setStrictUpdates( true );
+			batchOptions.setValidatePCOchecksums( false );	
+		}
+
+		//	String tetm = ProgramProperties.getInstance( FedoraAppConstants.getProgramPropertiesURL() ).getProperty( FedoraAppConstants.BATCH_INGEST_XML_SCHEMA_CHECK_PROPERTY);;
+
+		// Set up the fedora external object relationships.
+
+		batchOptions.getExtRelList().addECTDrelationships( FedoraAppConstants.ECTDcollectionPID, FedoraAppConstants.ECTDmodelPID );
+
+		return batchOptions;
+	}
+
+	/**
+	 * NOTE VERY WELL: This my not execute if another process started a batch first.
+	 * 
+	 * @param batchOptions
+	 * @throws Exception
+	 */
+	private  synchronized void startNewBatchThread( BatchIngestOptions batchOptions ) throws Exception
+	{         
+		String batchIngestFolderUrl = programProperties.getProperty( FedoraAppConstants.BATCH_INGEST_TOP_FOLDER_URL_PROPERTY );
+		String batchIngestFolder    = new URL( batchIngestFolderUrl ).getFile();
+		String work_folder          = programProperties.getProperty( FedoraAppConstants.BATCH_INGEST_WORK_FOLDER_PROPERTY );
+		String mets_new_folder      = programProperties.getProperty( FedoraAppConstants.BATCH_INGEST_NEW_METS_FOLDER_PROPERTY );
+		String mets_update_folder   = programProperties.getProperty( FedoraAppConstants.BATCH_INGEST_UPDATES_METS_FOLDER_PROPERTY );
+
+		File ingestWorkFolder = new File( batchIngestFolder + File.separator + institution + File.separator + batchSet + File.separator + work_folder );
+		File metsNewFolder    = new File( batchIngestFolder + File.separator + institution + File.separator + batchSet + File.separator + mets_new_folder );
+		File metsUpdateFolder = new File( batchIngestFolder + File.separator + institution + File.separator + batchSet + File.separator + mets_update_folder );
+
+
+		String[] workFileList = FileUtil.getEctdBatchFileList( ingestWorkFolder );       
+		File[] newList      = FileUtil.getXmlFileList(  metsNewFolder    );
+		File[] updateList   = FileUtil.getXmlFileList(  metsUpdateFolder );
+
+		if ( workFileList.length > 0 ) // prepare to process new batch.
+		{
+			batchOptions.setWorkFile( workFileList[0] ); // split batch and process all files.
+		}
+		else // if there are files still waiting to be processed, due to previous failure, go ahead and process them.
+		{
+			if (  newList.length > 0 || updateList.length >0  )
+			{
+				batchOptions.setSplitXMLinWorkDirToMets( false ); 
+			}
+			else {
+				return; // nothing to do.
+			}
+		}
+
+		FedoraAppBatchIngestController ectdIngestController = new FedoraAppBatchIngestController( administrator, new TransformMetsData(), institution, batchSet, fedoraContext, batchOptions );
+
+		BatchIngestThreadManager.setBatchSetThread( batchSet, ectdIngestController );
+
+		// Create a background thread and start a new batch ingest.
+		new Thread( ectdIngestController ).start();
+	}
+
+
+	private class EctdResultsListener implements MessageListener
+	{
+		public void onMessage(Message message)
+		{
+			try
+			{
+				if (message instanceof TextMessage)
+				{
+					TextMessage txtMessage = (TextMessage)message;
+
+					String[] results = txtMessage.getText().split( "\n");
+
+					//         System.out.println("\nMessage received: string 1 = " + results[0] );
+					//         System.out.println("Message received: string 2   = " + results[1] );
+
+					try {
+						sendEctdRestResponse( results );
+						emailResults( results );
+						txtMessage.acknowledge();
+					} 
+					catch (Exception e) 
+					{
+						String errorMsg = "ECTD worker ERROR: "+e.getMessage();
+						logger.error( errorMsg );
+
+						String[] emailToList   = new String[]{ emailFailureAddress, emailFailureAddress_2 };
+
+						try {
+							sendEmail( emailToList, "ECTD Ingest Failure", errorMsg, emailFailureAddress );
+						} catch (Exception e1) 
+						{
+							e1.printStackTrace();
+						} 
+					}        
+				}
+				else
+				{
+					System.out.println("Invalid message received.");
+				}
+			}
+			catch (JMSException e)
+			{
+				System.out.println("Caught:" + e);
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+	/**
+	 * After successfull ingest call back ctl's ectd application.
+	 * 
+	 * @param results [0] is the ingest report. [1] is the pid report.
+	 * 
+	 */
+	private void sendEctdRestResponse( String[] results ) throws Exception 
+	{
+		if ( ! results[1].endsWith( FedoraAppConstants.BATCH_INGEST_PID_REPORT_FILE_EXT ) )
+		{
+			throw new Exception( "Invalid pid result file obtained:"+results[0] );
+		}
+
+		File pidReportFile = new File( results[1] );
+		if ( ! pidReportFile.exists() ){
+			throw new Exception( "Invalid pid result file obtained:"+results[1] );
+		}
+
+		BufferedReader pidReportReader    = new BufferedReader(new FileReader( pidReportFile ));
+		String line = "";
+
+		line = pidReportReader.readLine();
+		String[] parsedPidLine = null;
+		while ( line != null )
+		{
+			parsedPidLine = line.split( "," );
+
+			if ( parsedPidLine.length < 2 ){
+				throw new Exception( "Invalid line in pid report:"+line );
+			}
+
+			if ( ! parsedPidLine[0].startsWith( FedoraAppConstants.DU_INSTITUTION_NAME) )
+			{
+				throw new Exception( "Invalid PID!:"+line );
+			}
+
+			String pid   = parsedPidLine[0];
+			String objid = parsedPidLine[1];
+
+			sendEctdResponse( getEctdResponseUrl(), pid, objid );
+
+			line = pidReportReader.readLine();
+		}
+	}
+
+	/**
+	 * http://130.253.33.105:8085/library/updatePid?id=du_174_1793_primary_1999_kelly&pid=178
+	 *                        &key=6b476c7e50726949347162353c7e3d7271336e6f3e3e4c2d703d762d24	
+
+	 * @param pid
+	 * @param objid
+	 */
+	private String  getEctdResponseUrl()
+	{
+		StringBuffer ectdResultsUrl = new StringBuffer( "http://" );
+		ectdResultsUrl.append( HOST );
+		ectdResultsUrl.append( ":" );
+		ectdResultsUrl.append( PORT );
+		ectdResultsUrl.append( CMD );
+
+		return ectdResultsUrl.toString();
+	}
+
+	private void sendEctdResponse( String url, String pid, String objid ) throws Exception
+	{
+		HttpClient client = new HttpClient();
+		client.getParams().setParameter("http.useragent", "fedoraProxy Client");
+
+		GetMethod method = new GetMethod( url );
+		HttpMethodParams params = new HttpClientParams();
+		params.setParameter( "id", objid );
+		params.setParameter( "pid", pid );
+		params.setParameter( "key", KEY );
+
+		method.setParams(params);
+
+		try{
+			int returnCode = client.executeMethod(method);
+
+			if( returnCode != HttpStatus.SC_OK ) 
+			{
+				throw new Exception( "Status not ok from call to ectd response url: status="+returnCode+" url="+url+ "pid="+pid+" objid="+objid );
+			} 
+		}	      
+		catch (Exception e )
+		{
+			throw new Exception( "Unable to send ectd rest response: url="+url+" "+e.getLocalizedMessage() );
+		} 
+		finally {
+			method.releaseConnection();
+		}
+	}
+
+
+	/**
+	 * Email the pid and results file.
+	 * 
+	 * @param filesToMail [0] is the ingest report; [1] is the pid report.
+	 * 
+	 * @throws Exception
+	 */
+	private void emailResults( String[] filesToMail ) throws Exception {
+
+		/**
+		 * createNewFile() creates an empty file ONLY IF IT DOESN"T ALREADY EXIST, this only happens during an error condition.
+		 */
+		File ingestReportFile = new File( filesToMail[0] );
+		ingestReportFile.createNewFile(); // see above
+		File pidReportFile    = new File( filesToMail[1] );
+		pidReportFile.createNewFile(); // see above	
+
+		StringBuffer emailMessage = null;
+		String line = "";
+
+		BufferedReader ingestReportReader = new BufferedReader(new FileReader( ingestReportFile ));
+		BufferedReader pidReportReader    = new BufferedReader(new FileReader( pidReportFile ));
+		emailMessage = new StringBuffer();
+		while ( (line = ingestReportReader.readLine()) != null ){
+			emailMessage.append( line+"\n" );
+		}
+		emailMessage.append( "\n\n");
+		line = pidReportReader.readLine();
+		while ( line != null ){
+			emailMessage.append( line.replaceAll( ",", ", " )+"\n" );
+			line = pidReportReader.readLine();
+		}
+
+		String[] emailToList   = new String[]{ emailSuccessAddress, emailSuccessAddress_2 };
+
+		sendEmail( emailToList, emailIngestSubjectTxt, emailMessage.toString(), this.emailSuccessAddress );
+
+		this.logger.info( "ECTD Ingest report sent");
+	}
+
+	/**
+	 * 
+	 * @param emailList
+	 * @param emailSubject
+	 * @param emailMessage
+	 * @param emailFromAddress
+	 * @throws Exception
+	 */
+	void sendEmail( String[] emailList, String emailSubject, String emailMessage, String emailFromAddress ) throws Exception
+	{
+		SendMail smtpMailSender = new SendMail();
+		smtpMailSender.postMailWithAuthenication( emailList, emailSubject, emailMessage,  emailFromAddress, smtpServerHost, smtpUser, smtpPassword );
+	}
+
+	/**
+	 * Listen for message saying that there ectd batch files ready for ingest.
+	 * 
+	 * @author chet
+	 *
+	 */
+	private class EctdStartNewBatchListener implements MessageListener
+	{
+		public void onMessage(Message message)
+		{
+			try
+			{
+				if (message instanceof TextMessage)
+				{
+					TextMessage txtMessage = (TextMessage)message;
+
+					String messageText = txtMessage.getText();
+
+					try {
+						boolean newBatchStarted = tryToStartNewBatchThread();
+						if ( newBatchStarted )
+						{
+							txtMessage.acknowledge();  		
+						}
+						else {
+							// another batch is already running, so we wait for this message to be sent again.
+						}
+					} 
+					catch (Exception e) 
+					{
+						String errorMsg = "ECTD worker ERROR: "+e.getMessage();
+						logger.error( errorMsg );
+
+						String[] emailToList   = new String[]{ emailFailureAddress, emailFailureAddress_2 };
+
+						try {
+							sendEmail( emailToList, "ECTD Ingest Failure", errorMsg, emailFailureAddress );
+						} catch (Exception e1) 
+						{
+							e1.printStackTrace();
+						} 
+					}            
+				}
+				else
+				{
+					System.out.println("Invalid message received.");
+				}
+			}
+			catch (JMSException e)
+			{
+				System.out.println("Caught:" + e);
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+} // ECTDjmsListeners

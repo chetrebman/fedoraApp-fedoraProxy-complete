@@ -1,0 +1,7 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head></head>
+  <body>
+  Contains utilities used by the fedora distribution admin client.
+  </body>
+</html>

@@ -1,0 +1,231 @@
+Set batchIngest.properties to use ~/batch_space/ 
+	this allows /opt/tomcat_no_fedora to continue to run on port 6080
+		this has the fedoraProxy fedoraApp  applications.
+	     and    /opt/fedora/fedora     ""  ""               port 8080
+		this has the fedora and fedoragsearch applications.
+
+Clear ~/batch_space/codu/ectd/work, mets/new, mets/update, and taskTemp directories.
+
+Set breakpoint ECTDworker.postEctdResponse
+
+add FedoraApp and FedoraProxy to tomcat 6.0 in eclipse and start in debug mode.
+
+make sure fedora is running /opt/fedora/fedora/tomcat/bin/startup.s as user fedora
+	You will need to use the etc/rc.local script to make sure that that the data
+	directories are mounted via sshfs
+
+*********************************************************************************
+TEST add OF TYPE 'normal' *******************************************************
+*********************************************************************************
+
+in edu.du.penrose.systems.fedoraProxy.tests.ProxyControllerTests set...
+	weblintURL = "http://localhost:7080/fedoraProxy/ingest.ectd";
+		and
+	final String xmlFileName = batchFilePrefix+"_normal.xml";
+	final String pdfFileName1 = "ECTD_test_1_access.pdf";
+	final String pdfFileName2 = "ECTD_test_2_access.pdf";
+
+	// make sure these are not commented out (they are in test 4)
+	final String pdfFileName1 = "du_325_1775_primary_2001_ananthakrishnan.pdf";
+	final String pdfFileName2 = "du_325_1777_signature_2001_ananthakrishnan.pdf";
+
+
+right click on edu.du.penrose.systems.fedoraProxy.tests.ProxyControllerTests and Debug as JUnit test.
+
+  You should see ectdBatchIngestxxxxxx.xml, batch ingest file appear immediately in work directory.
+ 
+  After couple of minutes it should be moved to completedBatchFiles and the codu.ectdxxxx.txt and .csv report files should appear in tasksTemp 
+
+  After couple of minutes you should stop at breakpoint, the above files will still be as above.
+
+  While at breakpoint step, if you are able to connect to ECTD server, set the return code to force a failure and continue.
+
+  Verify the files are still as above.
+
+  After couple of minutes you should stop at breakpoint. You should have recieved a failure email. force failure and continue.
+
+  After couple of minutes you should stop at breakpoint. You should NOT recieve a second failure email. force success and continue.
+
+  You should receive an success email and the files will be moved from taskTemp into the logs folder.
+
+*********************************************************************************
+TEST add OF TYPE 'replyWithPID' *************************************************
+********************************************************************************* 
+
+With Fedora OFF
+
+Set breakpoint in edu.du.penrose.systems.fedoraProxy.web.bus.IngestECTDcontroller at the line pidMap = MetsBatchFileSplitter.splitMetsBatchFile_version_2
+ 
+
+TEST_1 ---------------------------
+
+in edu.du.penrose.systems.fedoraProxy.tests.ProxyControllerTests set...
+	final String xmlFileName  = batchFilePrefix+"_replyWithPid.xml";
+	final String pdfFileName1 = "du_325_1775_primary_2001_ananthakrishnan.pdf";
+	final String pdfFileName2 = "du_325_1777_signature_2001_ananthakrishnan.pdf";
+
+start server in debug.
+
+right click on edu.du.penrose.systems.fedoraProxy.tests.ProxyControllerTests and Debug as JUnit test.
+
+	An exception will be thrown when you call splitMetsBatchFile_version_2
+
+	you should have the file work/xxxxxx.xml.FAILURE_OCCURED
+
+	you should recieve a failure email.
+
+	remove the failure file.
+
+TEST_2 ---------------------------
+
+start fedora...data files are still not mounted.  /opt/fedora/fedora/tomcat/bin/startup.sh as user fedora.
+NOTE: we are trying to force a fedora error, even though we can communicate with, a better method is needed.
+
+right click on edu.du.penrose.systems.fedoraProxy.tests.ProxyControllerTests and Debug as JUnit test.
+
+	you should have the file work/xxxxxx.xml.FAILURE_OCCURED
+
+	you should have NO FILES in mets/new
+
+	you should recieve a failure email.
+
+	remove the failure file.
+
+TEST_3 ---------------------------
+
+stop fedora 
+start fedora using /etc/rc.local which will mount the data directory.
+
+
+right click on edu.du.penrose.systems.fedoraProxy.tests.ProxyControllerTests and Debug as JUnit test.
+
+	pidMap should contain one key value pair, which is the OBJID and the assigned pid.
+
+	the work dir will contain ectdBatchIngest_xxxxxxxx.xml.DISABLE_UNTIL_FILES_SAVED
+
+	the dir mets/new should contain one {DATE-TIME}.xml file containing the comment of type...
+
+		<!--<ingestControl command="A" type="replyWithPid" /> reservedPid="codu:YYY" -->
+
+	Next task call in fedoraApp will ingest the file mets/new
+
+  	you will stop at breakpoint
+
+	the mets/new file should be gone
+
+	there should two report files in tasksTemp
+		codu.ectd.may-13-2011_14:43:19-695.csv  
+		codu.ectd.may-13-2011_14:43:19-695.txt
+
+	verify that the new object is in the ectd collection.
+
+	get success response from ectd rest post.
+
+	Next task call will send success email and move reports to log folder
+
+TEST 4 --------------------------------
+
+	set breakpoint edu.du.penrose.systems.fedoraApp.tasks.ECTDworker this.initProgramProperties();
+	Set breakpoint ECTDworker.postEctdResponse
+
+	Edit ectdBatchIngest_update_DS and update OBJID="codu:xxxxx" with pid of the objected in the above replyWithPID test.
+
+in edu.du.penrose.systems.fedoraProxy.tests.ProxyControllerTests set...
+	final String xmlFileName = batchFilePrefix+"_update_DS.xml";
+
+	set an existing pid in above file.
+
+//	final String pdfFileName1 = "du_325_1775_primary_2001_ananthakrishnan.pdf";
+//	final String pdfFileName2 = "du_325_1777_signature_2001_ananthakrishnan.pdf";
+
+	Start the fedoraApp, fedoraProxy in debug and make sure Fedora is running.
+
+right click on edu.du.penrose.systems.fedoraProxy.tests.ProxyControllerTests and Debug as JUnit test.
+
+	verify file of type ectdBatchIngest_may-16-2011_12\:06\:13-504.xml in work folder.
+
+	stop at breakpoint.
+
+	Verify there is a file of type may-16-2011_11:41:08-189.xml in the mets/updates folder
+
+
+	remove breakpoint edu.du.penrose.systems.fedoraApp.tasks.ECTDworker this.initProgramProperties();
+
+	Continue
+
+	verify that successful update email is sent, no ectd response is sent and files in taskTemp are moved to log folder.
+
+
+TEST 5
+
+	final String xmlFileName = batchFilePrefix+"_update_PCO.xml";
+
+	Make sure an existing pid and ds's are above file.
+
+	final String pdfFileName1 = "du_325_1775_primary_2001_ananthakrishnan.pdf";
+	final String pdfFileName2 = "du_325_1777_signature_2001_ananthakrishnan.pdf";
+	final String pdfFileName1 = "du_325_1775_primary_2001_ananthakrishnan.pdf";
+	final String pdfFileName2 = "du_325_1777_signature_2001_ananthakrishnan.pdf";
+ 	
+right click on edu.du.penrose.systems.fedoraProxy.tests.ProxyControllerTests and Debug as JUnit test.
+
+	verify one success email, no files left in work, met/update or taskTemp, verify MODS ds title updates
+
+TEST 6
+	same as above except..
+	final String xmlFileName = batchFilePrefix+"_update_PCO_force_error.xml";
+
+right click on edu.du.penrose.systems.fedoraProxy.tests.ProxyControllerTests and Debug as JUnit test.
+
+	verify one failure email, no files left in work, met/update or taskTemp
+
+TEST 7
+	same as above except..
+	final String xmlFileName = batchFilePrefix+"_update_ALL.xml";
+
+right click on edu.du.penrose.systems.fedoraProxy.tests.ProxyControllerTests and Debug as JUnit test.
+
+	verify one success email, no files left in work, met/update or taskTemp, verify MODS and DC ds title updates
+
+	
+TEST 8
+	verify no files left in work, met/update or taskTemp
+        install /mets/update file and mets/new files
+        
+
+
+*********************************************************************************
+TEST authentication              *************************************************
+********************************************************************************* 
+
+
+	
+
+
+
+
+	
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+

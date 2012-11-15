@@ -1,0 +1,10 @@
+
+"Take your web browser to http://localhost:9080/fedoraApp/"
+
+"Select institution 'demo' and batchSet 'demoCollection'"
+
+"Select allow simultaneus Manual and Remote ingests"
+
+"Select split work file 'systemsTest_normal.xml"
+
+"Press the 'Ingest All' button"
