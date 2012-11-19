@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<batch version="2">
+<ingestControl command="u" type="all">
+
+<!- This will update the metadata (MODS) and PCO, PID is in the OBJID -->
+
+<mets:mets xmlns:mets="http://www.loc.gov/METS/" 	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 	xsi:schemaLocation="http://www.loc.gov/METS/   http://www.loc.gov/standards/mets/mets.xsd    http://www.loc.gov/mods/v3   http://www.loc.gov/standards/mods/v3/mods-3-3.xsd    http://purl.org/dc/elements/1.1/  http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"	OBJID="PUT_YOUR_PID_HERE" LABEL="update PID and MODS metadata">
+	
+	<mets:dmdSec ID="B063.02.0002.00002">
+		<mets:mdWrap MIMETYPE="text/xml" MDTYPE="MODS">
+			<mets:xmlData>
+				<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" >
+
+<!-- PUT YOUR MODS HERE -->
+
+                                </mods>
+                         </mets:xmlData>
+                </mets:mdWrap>
+        </mets:dmdSec>
+
+<!-- PUT YOUR PCO DATA BELOW -->
+
+	<mets:fileSec>
+		<mets:fileGrp ID="GR1" USE="master">
+			<mets:file MIMETYPE="video/mp4" ID="YOUR_PCO_FILE_NAME.mp4">
+				<mets:FLocat xmlns:xlink="http://www.w3.org/1999/xlink" LOCTYPE="URL" xlink:href="file:YOUR_PCO_FILE_NAME.mp4"></mets:FLocat>
+			</mets:file>
+		</mets:fileGrp>
+	</mets:fileSec>
+	<mets:structMap TYPE="logical">
+		<mets:div TYPE="section" LABEL="PUT YOUR LABEL HERE" ID="YOUR_PCO_FILE_NAME.id">
+			<mets:fptr FILEID="YOUR_PCO_FILE_NAME.mp4"></mets:fptr>
+		</mets:div>
+	</mets:structMap>
+</mets:mets>
+
+</batch>
