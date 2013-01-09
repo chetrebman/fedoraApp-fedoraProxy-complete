@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+    <meta charset="utf-8">
+    <title>fedoraApp/fedoraProxy ingest tutorial</title>
+  </head>
+  <body>
+    <div style="text-align: center;">
+      <h1><a class="mozTocH1" name="mozTocId598345"></a><a name="fedoraApp_Ingester_and_fedoraProxy_Quick"></a>fedoraApp
+Ingester
+        and fedoraProxy Quick Start Tutorial</h1>
+    </div>
+    <h2 style="text-align: center;"><a href="#What_this_is...">what is this?</a></h2>
+    <span style="font-weight: bold; font-style: italic;">Chet Rebman</span><a target="_blank"
+      href="http://www.du.edu/"><span style="font-style: italic; font-weight: bold;"></span></a><br>
+    <a href="http://www.coalliance.org/" target="_blank"><span style="font-style: italic; font-weight: bold;">Colorado
+        Alliance of Research Libraries</span></a><br>
+    <span style="font-weight: bold; font-style: italic;">January 2013</span><br>
+    <br>
+    <hr style="width: 100%; height: 2px;"><br>
+    <ol id="mozToc">
+      <!--mozToc h1 1 h2 2 h3 3 h4 4 h5 5 h6 6-->
+      <li><a href="#mozTocId598345">fedoraApp Ingester and fedoraProxy Quick
+          Start Tutorial</a>
+        <ol>
+          <li><a href="#What_this_is...">what is this?</a></li>
+          <li><a href="#mozTocId628294">First </a></li>
+          <li><a href="#mozTocId107913">Simple Fedora Ingest </a></li>
+          <li><a href="#mozTocId757109">Ingest that assigns a Collection and a
+              Content model</a></li>
+          <li><a href="#mozTocId232419">Enable Remote ingest for a WORKING
+              manual ingest (above).</a></li>
+          <li><a href="#mozTocId250573">Ingest of type pidInOBJID using a
+              working REMOTE ingest (above) </a></li>
+          <li><a href="#mozTocId635812">Ingest of type replyWithPID using a
+              working REMOTE ingest (above)</a></li>
+          <li><a href="#mozTocId246144">Manual Mixed Content Ingest</a></li>
+          <li><a href="#Bagit_Ingest">Bagit Ingest</a></li>
+          <li><a href="#Remote_Ingest_URL_Explanation">Remote URL Explanation</a></li>
+          <li><a href="#Batch%20Scripts">Useful Batch Scripts</a><br>
+          </li>
+          <li><a href="#mozTocId713220">LOGS</a></li>
+        </ol>
+      </li>
+      <li><a href="#mozTocId552844">NOTES AND EXPLANATIONS FOR THE ABOVE
+          TUTORIAL ARE BELOW</a>
+        <ol>
+          <li><a href="#mozTocId316426">What this is this? </a></li>
+          <li><a href="#mozTocId671321">Tips for modifying the scripts...</a></li>
+          <li><a href="#mozTocId484814">The tutorial uses the following Fedora
+              objects...</a></li>
+          <li><a href="#mozTocId611947">Batch Directory Tree</a></li>
+          <li><a href="#mozTocId507698">To add a new user to connect to
+              fedoraProxy...</a></li>
+          <li><a href="#mozTocId237154">Important Files (passwords, etc)<br>
+            </a></li>
+          <li><a href="#Important%20Notes">Important Notes</a><br>
+          </li>
+          <li><a target="_blank" href="notes.txt">More Notes</a></li>
+        </ol>
+      </li>
+    </ol>
+    <hr style="width: 100%; height: 2px;">
+    <h2><a class="mozTocH2" name="mozTocId628294"></a><a name="First"></a>First
+    </h2>
+    <b>Make sure you have...</b> <br>
+    java 1.6 or greater<br>
+    JAVA_HOME is set<br>
+    /bin/bash <br>
+    fedora running with the resource index enabled.<br>
+    <br>
+    <b>Start Jetty</b> <br>
+    cd {install directory}/FedoraApp_FedoraProxy_distribution_Nov_2012/jetty/<br>
+    &nbsp;./start_jetty.sh <br>
+    <br>
+    <b>TERMS:</b><br>
+    <br>
+    <b>&nbsp;&nbsp;&nbsp; PCO</b> Stands for Primary Content Object and is the
+    image, pdf, wav, mv etc for the digital object<br>
+    <br>
+    <hr style="width: 100%; height: 2px;">
+    <h2><a class="mozTocH2" name="mozTocId107913"></a>Simple Fedora Ingest </h2>
+    (good first step to make sure everything is working)<br>
+    <br>
+    <a id="install"><span style="font-weight: bold; text-decoration: underline;">Install</span></a><br>
+    <br>
+    cd batchScripts/<br>
+    <br>
+    Edit batchScripts/<span style="font-style: italic;">install.sh</span> <br>
+    <br>
+    &nbsp;&nbsp;&nbsp;<span style="font-style: italic;"> <span style="text-decoration: underline;">Set
+        islandora="f"</span></span> the rest of the defaults will work if you
+    are still using fedoraAdmin as user and password and <b>have a fedora <span
+        style="font-style: italic;">demo</span> namespace</b>, otherwise you
+    will need to set the namespace in the install script<br>
+    &nbsp;&nbsp;&nbsp; <br>
+    &nbsp;&nbsp; If you wish to use a namespace other then demo...<br>
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="font-style: italic; text-decoration: underline;">Change
+      fedoraNamespace="demo"</span> to your namespace, you will need to use this
+    names space from here on out.<br>
+    <br>
+    <code>./install.sh</code><br>
+    <br>
+    This created a <a style="font-weight: bold;" href="#Batch_Directory_Tree">batch
+      tree</a> under the batch_space directory.<br>
+    <br>
+    <span style="font-weight: bold; text-decoration: underline;">Test</span><br>
+    <br>
+    <code>./manual_ingest.sh</code><br>
+    <br>
+    &nbsp;&nbsp;&nbsp; Take note of the institution and batchSet that are being
+    used (these are set in the install.sh script)<br>
+    &nbsp;&nbsp;&nbsp; <br>
+    &nbsp;&nbsp;&nbsp; Follow the displayed directions to perform a manual batch
+    ingest.<br>
+    &nbsp;&nbsp;&nbsp; NOTE: If this is a fresh install, the batchSet will not
+    remote enabled, however if you set the checkbox<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'Allow Simultaneous Manual
+    and Remote ingests', make sure you check it!)<br>
+    <br>
+    &nbsp;&nbsp;&nbsp;<b> EXPECTED RESULTS:</b> You should see 5 successful
+    ingests with one failure.<br>
+    <br>
+    &nbsp;&nbsp;&nbsp; Use the 'View Ingest Report' and the 'View PID Report' to
+    view the details of the ingest.<br>
+    <br>
+    &nbsp;&nbsp;&nbsp; When finished viewing the results, click the 'Enable New
+    Batch' button.&nbsp; This will enable another manual batch for this
+    institution.<br>
+    <br>
+    &nbsp;&nbsp;&nbsp; <b>NOTE:</b> If there is a fedora failure, such as
+    invalid pid namespace, the batch file in in the batch tree <b><i>work</i></b>
+    directory will already have been split and moved to the batch tree <i><b>completedBatchFiles</b></i>
+    directory, the mets files will still be waiting to be ingested in the batch
+    tree <i><b>mets/new</b></i> directory. In this case you can fix the fedora
+    problem and try the ingest again, the only difference is that you will <i>not</i>
+    select the checkbox to split the batch file.<br>
+    <br>
+    <hr style="width: 100%; height: 2px;"><br>
+    <h2><a class="mozTocH2" name="mozTocId757109"></a>Ingest that assigns a
+      Collection and a Content model</h2>
+    (This modifies the rels-ext for the ingested objects, assigning&nbsp; a
+    collection and a content model. )<br>
+    &nbsp; <br>
+    <span style="font-weight: bold;"> You need an existing collection and
+      content model</span>,&nbsp; you can either <a style="font-weight: bold;"
+      href="#Fedora_Objects">create them using the Fedora admin client</a><span
+      style="font-weight: bold;"> </span>or use existing objects.<br>
+    <br>
+    <span style="font-weight: bold;">If using&nbsp; existing objects</span>, <br>
+    &nbsp;&nbsp;&nbsp; replace all occurrences below of demo:fedoraAppCollection
+    with the PID for your collection and demo:fedoraAppCM with the PID for
+    Content Model. <br>
+    <br>
+    &nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">NOTE:</span> Make sure
+    you enter the correct namespace (if not using <span style="font-style: italic;">demo</span>)
+    prior to running the install script.<br>
+    &nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">NOTE: </span>The
+    namespace is the same as the institution you used when <a href="#make_batch_tree">creating</a>
+    a&nbsp; <a href="#Batch_Directory_Tree">batch tree</a>,&nbsp; <br>
+    &nbsp;&nbsp;&nbsp; <br>
+    &nbsp;&nbsp;&nbsp; Edit batchScripts/install.sh<br>
+    &nbsp;&nbsp;&nbsp; Set islandora="t"<br>
+    <br>
+    <br>
+    Edit batchScripts/install.sh&nbsp; <br>
+    <br>
+    &nbsp;&nbsp;&nbsp; set islandora="T" <br>
+    <br>
+    &nbsp;&nbsp;&nbsp; Set the fedoraUser and password for BOTH fedoraApp and
+    fedoraProxy (they can be the same user)<br>
+    &nbsp;&nbsp;&nbsp; NOTE: If you created the user in Islandora, the you need
+    to use the MD5 checksum of the password!!<br>
+    <br>
+    &nbsp;&nbsp;&nbsp; Set the fedoraNamespace, you can leave it as 'demo' if it
+    is still in your fedora config. Remember the institution (in the <a href="#Batch_Directory_Tree">batch
+      tree</a>) must match the fedora namespace.<br>
+    <br>
+    &nbsp;&nbsp;&nbsp; Set the batchSet name, this is a single word that refers
+    to the above collection (the default is fedoraAppDemoCollection)<br>
+    <br>
+    <code>./install.sh</code><br>
+    <br>
+    <code>./manual_ingest.sh</code><br>
+    <br>
+    Take your web browser to http://localhost:9080/fedoraApp<br>
+    <br>
+    Since islandora was set to true in the install script, you should now see
+    dropdowns for the collection and content model. These dropdowns will be
+    automatically filled after you select the institution. If you do not receive
+    any collection or content-model information, it means that the resource
+    index is not running or the rel-ext for the objects is incorrect.<br>
+    <br>
+    Click the checkbox for "Split work' file and select batch_normal.xml<br>
+    <br>
+    perform the manual ingest<br>
+    <br>
+    You will see the same results as before, except now the objects are assigned
+    to the fedoraAppCollection collection and<br>
+    fedoraAppCM content-model<br>
+    <br>
+    Look at the Ingest and PID reports<br>
+    <br>
+    Remember to click the 'Enable New Batch' button when your done!<br>
+    <hr style="width: 100%; height: 2px;"><br>
+    <h2><a class="mozTocH2" name="mozTocId232419"></a>Enable Remote ingest for a
+      WORKING manual ingest (above).</h2>
+    (by default this example uses the Fedora demo namespace)<br>
+    <br>
+    The ingester will complain if you try to overwrite files before they are
+    ingested. We can clear out any test files with the
+    clean_batch_space_file_system script.<br>
+    <br>
+    <code>./clean_batch_space_file_system.sh ../batch_space/ demo
+      fedoraAppDemoCollection</code><br>
+    <br>
+    &nbsp; FedoraApp needs to see a {batchSet}_REMOTE.properties file at the top
+    of the batch tree and see an entry in
+    fedoraApp/WEB-INF/taskEnable.properties before it will process ingests
+    automatically.&nbsp; <br>
+    <br>
+    &nbsp;FedoraProxy needs have the webSiteCollection.properties files updated.<br>
+    <br>
+    &nbsp;The addRemoteCapabilitiesToBatchSet script will update both the
+    fedoraApp and fedoraProxy configuration scripts.<br>
+    <br>
+    <code>./addRemoteCapabilitiesToBatchSet.sh ../batch_space ../jetty demo
+      fedoraAppDemoCollection 'demo:fedoraAppCollection'</code><br>
+    <br>
+    &nbsp; Next we will make sure FedoraApp has all remote ingests enabled. (t
+    enables, f disables)<br>
+    <br>
+    <code>./enableDisableAllRemoteTasksAndIndividualTasks.sh ../jetty t</code><br>
+    <br>
+    &nbsp;&nbsp; If all went well and jetty is running the following command
+    will now perform a remote ingest.<br>
+    <br>
+    <code>./demo_post_normal_single_PCOs_attached.sh</code><br>
+    <br>
+    Since the script is performing a HTML Post the result is displayed as HTML.
+    A successful post looks similar to this...<br>
+    <br>
+    <em><samp>&lt;html&gt;&lt;head&gt;&lt;/head&gt;<br>
+        &lt;body&gt;<br>
+        fedoraAppDemoCollection Ingest<br>
+        file; name=batch_;
+        filename=batch_normal_single_november-01-2012_15:46:18-537_REMOTE.xml,
+        filePath=batch_normal_single.xml, content type=text/xml, size=7270<br>
+        file;
+        name=./TEST_FILES/post_normal_single/a-bear-in-the-bushes-ursus-americanus.jpg;
+        filename=a-bear-in-the-bushes-ursus-americanus.jpg,
+        filePath=a-bear-in-the-bushes-ursus-americanus.jpg, content
+        type=application/pdf, size=436336<br>
+        file;
+        name=./TEST_FILES/post_normal_single/a-bear-in-the-bushes-ursus-americanus_access.jpg;
+filename=a-bear-in-the-bushes-ursus-americanus_access.jpg,
+filePath=a-bear-in-the-bushes-ursus-americanus_access.jpg,
+        content type=application/pdf, size=100050<br>
+        &lt;/body&gt;<br>
+        &lt;/html&gt;</samp></em><br>
+    <br>
+    This shows that fedoraProxy did it's part. It received the batch file, split
+    it up and stored the files in the <a href="#Batch_Directory_Tree">batch
+      tree</a> so the fedoraApp can perform the actual ingest.<br>
+    &nbsp; <br>
+    To check on the status of the actual batch ingest, look at the fedoraApp
+    status by pointing your browser at
+    http://localhost:9080/fedoraApp/viewRunningIngests.htm Look for a batchSet
+    with the name <i><b>demo_fedoraAppDemoCollection_REMOTE</b></i> you will be
+    able to watch the ingest in process along with viewing the final results. If
+    you don't see an entry for batchSet verify that the timer is running by
+    looking at logs/main.log and that the<a href="#Change%20background%20timer">
+      timer is set to a reasonable value</a>. Tasks must also be enabled in <a
+      href="#Important_Files">taskEnable.properties</a>. This should have been
+    done when you ran the addRemoteCapabilitiesToBatchSet.sh and
+    enableDisableAllRemoteTasksAndIndividualTasks.sh scripts above. Make sure
+    you have the correct institution, namespace and rels-ext<br>
+    <br>
+    You should see that one file was ingested into the demo:fedoraAppCollection
+    with a content model of demo:fedoraAppCM<br>
+    <br>
+    <hr style="width: 100%; height: 2px;"><br>
+    <h2><a class="mozTocH2" name="mozTocId250573"></a>Ingest of type <a id="pidInOBJID">pidInOBJID</a>
+      using a working REMOTE ingest (above) </h2>
+    <b>NOTE:</b> This example uses the the demo institution/namespace and the
+    fedoraAppDemoCollection batchSet, to change this you would need to create a
+    different <a href="#Batch_Directory_Tree">batch tree</a> with either the
+    install.sh or ./make_batch_tree.sh scripts and then change the institution
+    and batchSet name in the demo_post_pid_in_OBJID_single_PCOs_attached.sh <a
+      href="#Tips_for_modifing_the_scripts..."> script</a>.<br>
+    <br>
+    <b>NOTE:</b>&nbsp; Note fedoraApp and fedoraProxy work asynchronously. The
+    fedoraProxy reserves the PID and sends the batch file to fedoraApp.
+    FedoraApp remote ingest work on a timer defined in the
+    WEB-INF/applicationContext.xml file. The next time the timer runs (if remote
+    ingest are enabled in the taskEnable.properties file) the batch file will be
+    ingested.<br>
+    <br>
+    First we need to reserve PIDs and insert them into the OBJID field of the
+    batch file. The following script will read a standard batchFile (containing
+    an ingestControl line), reserve the correct number of PIDs and then create a
+    new batch file. &nbsp; The new batch file differs from the original in that
+    the ingestControl line is set to 'pidInOBJID' and a reserved PID has been
+    inserted in every METS OBJID element. <br>
+    <br>
+    The input batch file we will be using is <i>/batchScripts/TEST_FILES/post_pid_in_OBJID/batch_normal_beaver.xml</i>.
+    <br>
+    And the output file we will be creating for ingest is
+    /batchScripts/TEST_FILES/post_pid_in_OBJID/batch_pid_in_OBJID.xml<br>
+    <br>
+    <code>./createPid_in_OBJID_BatchFile.sh </code><br>
+    <br>
+    &nbsp;&nbsp;&nbsp; Next we ingest the new batch file, the only thing
+    different about this ingest is the batch file. In this batch file the PID is
+    contained in the OBJID field of the METS element..<br>
+    <br>
+    <code>./demo_post_pid_in_OBJID_single_PCOs_attached.sh&nbsp; </code><br>
+    <br>
+    <hr style="width: 100%; height: 2px;"><br>
+    <h2><a class="mozTocH2" name="mozTocId635812"></a>Ingest of type
+      replyWithPID using a working REMOTE ingest (above)</h2>
+    <b>NOTE:</b> This example uses the the demo institution/namespace and the
+    fedoraAppDemoCollection batchSet, to change this you would need to create a
+    different <a href="file:///home/chet/fedoraApp-fedoraProxy-complete/doc/TUTORIAL.html#Batch_Directory_Tree">batch
+      tree</a> with either the install.sh or ./make_batch_tree.sh scripts and
+    then change the institution and batchSet name in the
+    demo_post_pid_in_OBJID_single_PCOs_attached.sh <a href="file:///home/chet/fedoraApp-fedoraProxy-complete/doc/TUTORIAL.html#Tips_for_modifing_the_scripts...">
+      script</a>.<br>
+    <br>
+    <b>NOTE:</b>&nbsp; Note fedoraApp and fedoraProxy work asynchronously. The
+    fedoraProxy reserves the PID and sends the batch file to fedoraApp.
+    FedoraApp remote ingest work on a timer defined in the
+    WEB-INF/applicationContext.xml file. The next time the timer runs (if remote
+    ingest are enabled in the taskEnable.properties file) the batch file will be
+    ingested.<br>
+    <br>
+    The following differs from the previous remote ingest in that HTTP post
+    command returns the reserved PID with the the response.<br>
+    <br>
+    <code>./demo_post_replyWithPid_PCOs_attached.sh</code><br>
+    <br>
+    The response should be similar to the following.<br>
+    <samp><br>
+      &lt;html&gt;&lt;head&gt;&lt;/head&gt;<br>
+      &lt;body&gt;<br>
+      fedoraAppDemoCollection Ingest<br>
+      file; name=batch_;
+      filename=batch_replyWithPid_november-01-2012_16:43:49-397_REMOTE.xml,
+      filePath=batch_replyWithPid.xml, content type=text/xml, size=7060<br>
+      file; name=./TEST_FILES/post_replyWithPid/a-black-bear-and-cub-travel.jpg;
+      filename=a-black-bear-and-cub-travel.jpg,
+      filePath=a-black-bear-and-cub-travel.jpg, content type=application/pdf,
+      size=576438<br>
+      file;
+      name=./TEST_FILES/post_replyWithPid/a-black-bear-and-cub-travel_access.jpg;
+      filename=a-black-bear-and-cub-travel_access.jpg,
+      filePath=a-black-bear-and-cub-travel_access.jpg, content
+      type=application/pdf, size=179595<br>
+      <br>
+      The following PIDs have been 'Reserved' and will be assigned when the next
+      ADR ingest occurs.</samp> <samp><br>
+      At completion of the ingest a pass/fail email will be sent<br>
+      <br>
+      <b>ReservedPID="demo:19"</b></samp> <samp> OBJID="TestOBJID" <br>
+      <br>
+      &lt;/body&gt;</samp> <samp><br>
+      &lt;/html&gt;</samp><br>
+    <br>
+    &nbsp;&nbsp; <br>
+    <hr style="width: 100%; height: 2px;">
+    <h2><a class="mozTocH2" name="mozTocId246144"></a>Manual Mixed Content
+      Ingest</h2>
+    <p><b>NOTE:</b> This example uses the the demo institution/namespace and the
+      fedoraAppDemoCollection batchSet, to change this you would need to create
+      a different <a href="file:///home/chet/fedoraApp-fedoraProxy-complete/doc/TUTORIAL.html#Batch_Directory_Tree">batch
+        tree</a> with either the install.sh or ./make_batch_tree.sh scripts and
+      then change the institution and batchSet name in the
+      demo_post_pid_in_OBJID_single_PCOs_attached.sh <a href="file:///home/chet/fedoraApp-fedoraProxy-complete/doc/TUTORIAL.html#Tips_for_modifing_the_scripts...">
+        script</a>.</p>
+    <span style="font-weight: bold;">NOTE:</span> A mixed ingest can be remote
+    enabled just like any other, use with caution.<br>
+    <br>
+    A mixed ingest has the Fedora Collection and Content Model specified within
+    the batch file itself. This can be an major security hole, allowing the
+    posting into the incorrect collection. Unless fedoraProxy has been
+    configured with unique users and passwords for each institution, the
+    possibility of posting into the wrong institution exists.<br>
+    <br>
+    First we need to create a batchSet called <em><strong>mixed</strong></em>.
+    A mixed ingest can only occur within a batchSet specifically named <strong><em>mixed</em></strong>.<br>
+    <br>
+    <code>./make_batch_tree.sh ../batch_space demo mixed</code><br>
+    <br>
+    <b>NOTE:</b> you will probably see an error message complaining that the
+    demo directory already exists, this is normal and can be ignored.<br>
+    <br>
+    <code>./demo_post_normal_single_PCOs_attached_mixed.sh</code><br>
+    <br>
+    Follow the displayed directions to perform a manual batch ingest. The batch
+    file only contains one object to ingest, however it could contain any
+    number, all being ingested into different collections and with different
+    content models.<br>
+    <br>
+    <hr><br>
+    <h2><a name="Bagit_Ingest"></a>Bagit Ingest</h2>
+    Point your browser at http://localhost:9080/fedoraApp/viewRunningIngests.htm
+    so we can watch the ingest status. The ingest status will be displayed for
+    the demo_fedoraAppDemoCollection_REMOTE collection.<br>
+    <br>
+    First we need to create a valid bag. The following script use the files
+    contained <i>batchScripts/TEST_FILES/bagit</i> directory and assigns them
+    the URL of "http://localhost:9080/bagit/ within the created bag, <i>TEST_FILES/bagit.zip</i>,&nbsp;
+    the PCOs (images) and batch file (bagit.xml) are copied from <i>TEST_FILES/bagit/data/*</i>
+    to the web directory at <i>jetty/webapps/bagit/data/</i><br>
+    <code><br>
+      ./createBagit.sh</code><br>
+    <br>
+    Now we will post the bag to fedoraProxy. FedoraProxy deposits the bag in the
+    work directory of the batch tree. FedoraApp will then pick up the bag and
+    download the PCOs from the web server and check that the local machine now
+    has a complete and valid bag. The PCO files are then moved to the files
+    directory in the batch_tree. The batch batch file is moved to the work
+    directory of the <a href="#Batch_Directory_Tree">batch tree</a>. The batch
+    file is then split and the ingest occurs.<br>
+    <br>
+    <code>./demo_post_bagit.sh</code><br>
+    <br>
+    Final results displayed in your browser should be three passed&nbsp; with
+    three failed. View the PID report for info on the successes. View the ingest
+    report for details on the failures.<br>
+    <br>
+    <hr style="width: 100%; height: 2px;">
+    <h2><a name="Remote_Ingest_URL_Explanation"></a>Remote Ingest URL
+      Explanation</h2>
+    The script files that perform a remote ingest all use a URL with the
+    following structure.<br>
+    <br>
+    <span style="font-weight: bold;">java -jar postBatch.jar specialCollections
+      specialPW128Rt
+      http://digitaldu.coalliance.org:80/fedoraProxy/du/codu/beckArchives/ingest.it
+      bagit_8-3-2012.zip</span><br>
+    <br>
+    <span style="font-weight: bold;">FedoraProxy User:</span>
+    specialCollections&nbsp;&nbsp;&nbsp; defined in
+    .../jetty/fedoraProxy/WEB-INF/applicationContext.xml<br>
+    <span style="font-weight: bold;">FedoraProxy password:</span>
+    specialPW128Rt&nbsp;&nbsp;&nbsp; defined in
+    .../jetty/fedoraProxy/WEB-INF/applicationContext.xml<br>
+    <span style="font-weight: bold;">/du/codu/beckArchives/:</span> Url mapping
+    defined in<span style="font-weight: bold;"> </span>.../jetty/fedoraProxy/WEB-INF/applicationContext.xml<br>
+    <b><br>
+      <span style="font-weight: bold;"></span></b> <b>codu:</b> institution
+    name under the batch_space directory in a <a href="#Batch_Directory_Tree">batch
+      ingest directory tree</a>.<br>
+    <b>beckArchives:</b> batchSet under batch_space<br>
+    <br>
+    <span style="font-weight: bold;">NOTE:</span>
+    /batch_space/codu/beckArchives/beckArchives_REMOTE.properties&nbsp; must
+    exist for fedoraApp to process the the deposited file bagit_8-3-2012.zip<br>
+    <br>
+    <hr style="width: 100%; height: 2px;">
+    <h2><a class="mozTocH2" name="mozTocId713220"></a>Logs</h2>
+    .../jetty/webapps/fedoraApp/logs/main.log<br>
+    <br>
+    .../jetty/webapps/fedoraProxy/logs/main.log<br>
+    <br>
+    <br>
+    <hr style="width: 100%; height: 2px;"><br>
+    <br>
+    <h1 style="background-color: rgb(255, 255, 102); text-align: center;"><a class="mozTocH1"
+        name="mozTocId552844"></a><a name="NOTES"></a>NOTES AND EXPLANATIONS FOR
+      THE ABOVE TUTORIAL ARE BELOW</h1>
+    <h2><a class="mozTocH2" name="mozTocId316426"></a><a name="What_this_is..."></a>What
+      this is...<br>
+    </h2>
+    <span style="font-weight: bold;">FedoraApp</span> is a Java web application
+    used by the <a href="http://www.coalliance.org/" target="_blank">Colorado
+      Alliance of Research Libraries</a> for ingesting digital objects into
+    a&nbsp; <a target="_blank" href="http://fedora-commons.org/">Fedora Commons</a>
+    digital repository with an <a target="_blank" href="http://islandora.ca/">Islandora</a>
+    frontend. The ingester can be easily modified to simply ingest objects
+    without assigning them to a collection or a Content Model (a properties file
+    setting). Or the <a href="#Important_Files">Resource Index</a> library can
+    be modified to make it work with another type of frontend that has unique
+    REL-EXT definitions for Collection and Content Model.<br>
+    <br>
+    &nbsp;&nbsp;&nbsp; <span style="font-style: italic;">FedoraApp has the
+      following type of ingests...</span><br style="font-style: italic;">
+    <ul>
+      <li><span style="font-style: italic;"><b>normal</b> </span>- manual where
+        the use access fedoraApp through the web GUI and selects the
+        institution/namespace, collection (if using) and content model (if
+        using) OR viewing of remote ingests. The web GUI allows for the setting
+        of a number of options, remote ingests will use the user settings from a
+        previous manual ingest or save.<br>
+      </li>
+      <li><b><span style="font-style: italic;">replyWithPid</span></b> - when
+        performing a remote ingest the PID is reserved ahead of time and
+        immediately returned to the caller that posted the batch file.</li>
+      <li><b><span style="font-style: italic;">pidInOBJID</span></b>&nbsp; -
+        works for remote and manual ingests, the PID is contained within each
+        individual &lt;mets:mets OBJID="PID"</li>
+      <li><b><span style="font-style: italic;">Updates of metadata</span></b> -
+        manual and remote.</li>
+      <li><b><span style="font-style: italic;">Updates of PCO</span></b>
+        (primary content object, image etc.) - manual and remote.<br>
+      </li>
+    </ul>
+    <br>
+    <span style="font-weight: bold;">FedoraProxy</span> allows for the remote
+    ingesting of files. The files are posted to it via HTTP and the received
+    batch files are then stored in a local <a href="#Batch_Directory_Tree">batch
+      directory tree</a>. A FedoraApp application running on the same server
+    detects and processes these files up via a background process and performs
+    the ingest. FedoraProxy also allows for connecting to fedora to retrieve
+    datastreams and to connect to a SOLR index that are behind a firewall (this
+    tutorial doesn't talk much about that, but the code is simple).<br>
+    <br>
+    <b>TERMS:</b><br>
+    <br>
+    <b>&nbsp;&nbsp;&nbsp; PCO</b> Stands for Primary Content Object and is the
+    image, pdf, wav, mv etc for the digital object<br>
+    <br>
+    <a href="#First">Back to Tutorial</a><br>
+    <br>
+    <hr style="width: 100%; height: 2px;"><br>
+    <h2><a class="mozTocH2" name="mozTocId671321"></a><a name="Tips_for_modifing_the_scripts..."></a>Tips
+      for modifying the scripts</h2>
+    <br>
+    The script consists of borne shell scripts that call java jar files. For
+    example the script contains the follow line...<br>
+    <br>
+    <div style="margin-left: 40px;">java -jar ./postBatchFile.jar demoUser
+      demoPW&nbsp;
+      http://localhost:9080/fedoraProxy/du/demo/fedoraAppDemoCollection/ingest.it
+      ./TEST_FILES/post_normal_single/batch_normal_single.xml
+      ./TEST_FILES/post_normal_single/a-bear-in-the-bushes-ursus-americanus.jpg
+./TEST_FILES/post_normal_single/a-bear-in-the-bushes-ursus-americanus_access.jpg<br>
+    </div>
+    <br>
+    to understand what the parameters mean simply run the script without
+    parameters or call the jar directly without supplying any parameters, for
+    example...<br>
+    <br>
+    <div style="margin-left: 40px;">java -jar ./postBatchFile.jar<br>
+    </div>
+    <br>
+    prints the following usage information...<br>
+    <br>
+    <div style="margin-left: 40px;">&nbsp;USAGE: user, password, URL,
+      batchFileName, attachedFile 1(optional),&nbsp; attachedFile 2(optional) <br>
+    </div>
+    <br>
+    <a href="#Add_a_new_user">Changing the fedoraProxy user name and password</a><br>
+    <br>
+    <a href="#Important_Files">Changing the password fedoraProxy and fedoraAdmin
+      use to connect to fedora</a>.<br>
+    <br>
+    <br>
+    <hr style="width: 100%; height: 2px;">
+    <h2><a class="mozTocH2" name="mozTocId484814"></a>&nbsp;<a name="Fedora_Objects"></a>The
+      tutorial uses the following Fedora objects</h2>
+    &nbsp;&nbsp;&nbsp; Fedora Collection -&gt; <span style="text-decoration: underline;"></span><span
+      style="font-weight: bold;">demo:fedoraAppCollection</span><span style="font-style: italic;"><span
+        style="font-weight: bold;"><br>
+        &nbsp;&nbsp; </span></span>Fedora Content Model -&gt;<span style="font-weight: bold;">
+      demo:fedoraAppCM</span><br>
+    &nbsp;&nbsp; <br>
+    The collection and content models must use a PID with a namespace that
+    matches the institution in a <a href="#Batch_Directory_Tree">batch tree</a>.
+    This batch tree was created with either the <a href="file:///home/chet/fedoraApp-fedoraProxy-complete/doc/TUTORIAL.html#install">install</a>
+    or the <a href="file:///home/chet/fedoraApp-fedoraProxy-complete/doc/TUTORIAL.html#make_batch_tree">make_batch_tree</a>
+    scripts.<br>
+    <br>
+    <b>Create a contentModel</b> using the Fedora Admin Client. For this
+    tutorial assign the PID of demo:fedoraAppCM<br>
+    <br>
+    <b>Create a collection top</b> using the Fedora Admin Client create a new
+    data object with the pid demo:top<br>
+    <br>
+    <b>Create a collection</b> using Islandora or a new data object with the
+    Fedora Admin Client. For this tutorial assign the PID of
+    demo:fedoraAppCollection<br>
+    <br>
+    &nbsp;&nbsp; This collection MUST have a COLLECTION_POLICY datastream, you
+    can simply import from batchScripts/TEMPLATES/COLLECTION_POLICY&nbsp; (This
+    policy already points to a content model with PID demo:fedoraAppCM, created
+    above)<br>
+    <br>
+    &nbsp;&nbsp; This collection MUST contain a REL-EXT with references to
+    fedoraAppCM and demo:top, you can simply import from
+    batchScripts/TEMPLATES/REL-EXT-DEMO_COLLECTION.xml <br>
+    <br>
+    <br>
+    <br>
+    <hr style="width: 100%; height: 2px;">
+    <h2><a class="mozTocH2" name="mozTocId611947"></a><a name="Batch_Directory_Tree"></a>Batch
+      Directory Tree</h2>
+    <span style="font-weight: bold;">An example batch set directory (v1.47) and
+      description follows…</span><br>
+    <span style="font-weight: bold;">batch_space</span><br>
+    &nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">demo</span> (the
+    institution,&nbsp; becomes fedora name space)<br>
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">fedoraAppDemoCollection</span>
+    (the project name,&nbsp; becomes batch set name in ingest drop down menu)<br>
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">mets</span><br>
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<span
+      style="font-weight: bold;"> new</span><br style="font-weight: bold;">
+    <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; updates</span><br style="font-weight: bold;">
+    <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; files</span><br style="font-weight: bold;">
+    <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; completed</span><br style="font-weight: bold;">
+    <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; completedBatchFiles</span><br style="font-weight: bold;">
+    <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; failed</span><br style="font-weight: bold;">
+    <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; failedBatchFiles</span><br style="font-weight: bold;">
+    <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; logs</span><br style="font-weight: bold;">
+    <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; work</span><br style="font-weight: bold;">
+    <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; images</span><br style="font-weight: bold;">
+    <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; tasksTemp</span><br>
+    <br>
+    <span style="font-weight: bold;">mets</span> - contains the METs XML files
+    (any number) that are to be ingested. <br>
+    <span style="font-weight: bold;">files</span> - contains the PCOs (any
+    number) referred to in the METs files. <br>
+    <span style="font-weight: bold;">completed</span> - METs files are moved
+    into this directory after a successful ingest. <br>
+    <span style="font-weight: bold;">completedBatchFiles</span> – Batch files
+    containing multiple METS are moved this directory after they have been split
+    into individual files (stored in mets/new or mets/updates.&nbsp; NOTE: The
+    ingest may still fail due to bad METS etc.<br>
+    <span style="font-weight: bold;">failed</span> - METs file are moved into
+    this directory on an ingest failure.<br>
+    <span style="font-weight: bold;">failedBatchFiles</span> Batch files that
+    created an error when we tried to split them are put here.<br>
+    <span style="font-weight: bold;">logs</span> - contains reports about each
+    run of the batch ingest. <br>
+    <span style="font-weight: bold;">work</span> - used by the ingest process
+    for temporary file storage. In addition a single XML file, which contains
+    multiple METS records, can be stored here. After splitting the file (if it
+    exists), the file is moved into the completed directory. If an error occurs
+    during the split, the file is left in the work directory.<br>
+    <span style="font-weight: bold;">images</span> used to add thumbnail to an
+    ingest DEPRECIATED.<br>
+    <span style="font-weight: bold;">tasksTemp</span> used by tasks that monitor
+    the files system looking for files to be ingested, rather being started an
+    ingest manually from the web interface. Tasks are enabled/disabled in the
+    tasksEnable.properties file.<br>
+    <br>
+    Prior to the start of a batch ingest, user options are performed. User
+    options could include any of the following, deleting all previously
+    completed files (in the completed folder), deleting all failed files (in the
+    failed folder) and deleting previous reports (in the logs folder). <br>
+    <br>
+    During batch ingest, a METS file that ingests without error, is moved into
+    the completed folder. If the user has selected to move PCOs, they will be
+    moved into the completed folder along with its METS file.&nbsp; A METS file
+    that fails is moved into the failed folder, the PCOs are not moved.&nbsp; If
+    an entire batch is aborted due to a FatalException all files are left in
+    place!<br>
+    After completion of the batch ingest, two reports are generated, the main
+    report which shows the number of completed and failed files, along with a
+    list of all errors. The second report is a PID report. The PID report maps
+    the PID and the contents of the OBJID element in the supplied METS file. <br>
+    <br>
+    <hr style="width: 100%; height: 2px;">
+    <h2><a class="mozTocH2" name="mozTocId507698"></a><a name="Add_a_new_user"></a>To
+      add a new user to connect to fedoraProxy</h2>
+    <br>
+    &nbsp;&nbsp;&nbsp; Edit the file fedoraProxy/WEB-INF/applicationContext.xml<br>
+    <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In order for remote ingest to
+    work, make sure you use valid institution and batchSet names!! <br>
+    <br>
+    &nbsp;&nbsp;&nbsp; For EXAMPLE..<br>
+    <br>
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;security:intercept-url
+    pattern="/du/<b>codu</b>/systemsTest/**"&nbsp;&nbsp; access="ROLE_<b>systemsTest</b>
+    /&gt;<br>
+    <br>
+    &nbsp;&nbsp;&nbsp; The institution is <b>codu</b><br>
+    &nbsp;&nbsp;&nbsp; The batchSet&nbsp;&nbsp; is <b>systemsTest</b><br>
+    <br>
+    &nbsp;&nbsp;&nbsp; These are used in the URL mapping of
+    IngestController.java which then copies files to the correct location in the
+    batch_set directory structure.<br>
+    <br>
+    &nbsp;&nbsp;&nbsp; The batch_set directory structure is what "connects
+    fedoraProxy to fedoraApp. This structure is defined in <br>
+    <br>
+    <hr style="width: 100%; height: 2px;">
+    <h2><a class="mozTocH2" name="mozTocId237154"></a><a name="Important_Files"></a>Important
+      Files</h2>
+    <span style="font-weight: bold;">The ingester main code</span>-&gt;
+edu.du.penrose.systems.fedoraApp.batchIngest.bus.FedoraAppBatchIngestController.java<br>
+    <br>
+    <span style="font-weight: bold;">The resource index query</span> <b>code</b>
+    -&gt; edu.du.penrose.systems.fedora.ResourceIndexUtils.java<br>
+    <br>
+    <span style="font-weight: bold;">FedoraApp settings, including batch_space
+      directory and fedoraUser and password</span> -&gt;
+    jetty/webapps/fedoraApp/WEB-INF/config/batchIngest.properties<br>
+    <br>
+    <span style="font-weight: bold;">FedoraProxy settings, including batch_space
+      directory and fedoraUser and password</span> -&gt;
+    jetty/webapps/fedoraProxy/WEB-INF/config/batchIngest.properties<br>
+    <br>
+    <span style="font-weight: bold;">TaskEnable.properties, enables remote and
+      background tasks</span> (use
+    enableDisableAllRemoteTasksAndIndividualTasks.sh to modify) -&gt;
+    jetty/webapps/fedoraApp/WEB-INF/config/taskEnable.properties<br>
+    <br>
+    <span style="font-weight: bold;">webSiteCollection.properties, used by
+      fedoraProxy for mapping</span> (use addRemoteCapabilitiesToBatchSet.sh to
+    modify) -&gt;
+    jetty/webapps/fedoraProxy/WEB-INF/config/webSiteCollection.properties<br>
+    <br>
+    <span style="font-weight: bold;">Contains sample batch files!</span>-&gt;
+    batchScripts/TEST_FILES/* look for the xml files in the sub directories<br>
+    <br>
+    batch_space/{institution}/{batchSet}/{batchSet}properties contains required
+    settings for manual and remote ingests of this particualr institution and
+    batchSet<br>
+    batch_space/{institution}/{batchSet}/{batchSet}_REMOTE.properties must be
+    present to enable ingest of files deposited remotely contains email and
+    class definition<br>
+    batch_space/{institution}/{batchSet}/{batchSet}_TASK.properties must be
+    present to enable background tasks contains email and class definition<br>
+    <br>
+    .../feodoraApp/WEB-INF/config/batchIngest.properties location of batch_space
+    directory, fedora userName and password etc.<br>
+    .../feodoraProxy/WEB-INF/config/batchIngest.properties location of
+    batch_space directory, fedora userName and password etc.<br>
+    <br>
+    <b>FedoraApp applicationContext.xml</b> set the remote and background ingest
+    timer interval here.<br>
+    <br>
+    <b>FedoraProxy applicationContext.xml</b> set the username and passwords for
+    connecting to fedoraProxy here.<br>
+    <br>
+    <br>
+    <br>
+    <hr style="width: 100%; height: 2px;"> <br>
+    <h2><a id="Important Notes">Important Notes</a></h2>
+    <br>
+    <b>Reduce logging</b> edit /fedoraApp/WEB-INF/config/log4j.properties or
+    reduce the background time (if enabled)<br>
+    <br>
+    <a id="Change background timer"><b>Change background timer</b></a>-&gt; In
+    order for the tutorial to respond quickly the timer settting for monitoring
+    remote ingests is set to 15 seconds. This creates a lot of logging in
+    logs/main.log. A more resonable time is probably 2.5 minutes, this reduces
+    the logging by a factor of 10 when only performing remote ingests. The can
+    be accomplished by editing can be reduced by changing the background timer
+    in /fedoraApp/WEB-INF/applicationContext.xml change the repeatInterval timer
+    for the fedoraAppTrigger bean.<br>
+    <br>
+    <br>
+    <b>Simultaneous ingests</b> - Each institution can have a maximum of three
+    ingests running at a time (one Manual, one Remote<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; and one Background
+    Task)<br>
+    <br>
+    <b>TERMS:</b><br>
+    <br>
+    <b>&nbsp;&nbsp;&nbsp; PCO</b> Stands for Primary Content Object and is the
+    image, pdf, wav, mp4i etc for the digital object<br>
+    <hr><br>
+    <h2><a id="Batch Scripts">Useful Batch Scripts</a></h2>
+    These are scripts that are of use outside of this demo.<br>
+    <br>
+    The batchScripts directory contains scripts that aid in administration and
+    posting of remote batch files, they are not actually part of the ingest
+    process. <b><a href="#Tips_for_modifing_the_scripts...">Run the script
+        without any parameters to get the latest parameter usage</a>.</b> <br>
+    <ul>
+      <li><a id="make_batch_tree">make_batch_tree</a> {path to top of
+        batch_space} {institution} {batchSet} </li>
+      <li>createBagit.sh - creates a <a href="http://www.digitalpreservation.gov/multimedia/videos/bagit0609.html">Library
+          of Congress bagit file</a> version 0.96 ready for ingesting<br>
+      </li>
+      <li>enableDisableAllRemoteTasksAndIndividualTasks.sh</li>
+      <li>createPid_in_OBJID_BatchFile.sh - reserves PIDs and stores them in a
+        batch file of type <a href="#pidInOBJID">pidInOBJID</a>.<br>
+      </li>
+      <li>addRemoteCapabilitiesToBatchSet.sh</li>
+      <li>addBackgroundTaskCapabilitiesToBatchSet.sh - there are no examples
+        with the tutorial, take a look at the code <code>edu.du.penrose.systems.fedoraApp.tasks.EtdWorker<br>
+        </code> <br>
+      </li>
+    </ul>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  </body>
+</html>

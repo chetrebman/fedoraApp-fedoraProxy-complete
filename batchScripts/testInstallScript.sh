@@ -4,7 +4,7 @@
 #  specified in a batchIngest_REMOTE.properties file.
 
 islandora="T"
-islandoraCollectionName="demoCollection"
+islandoraCollectionName="fedoraAppCollection"
 islandoraCollectionPid="SET_ME"
 
 disableHandleServer="f"

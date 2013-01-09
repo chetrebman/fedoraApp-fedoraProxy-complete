@@ -4,7 +4,7 @@
     <literal>Systems Test batch ingest, this description is optional and not used by the normal fedora/islandora ingest</literal>
   </batchDescription>
 <ingestControl command="A" type="pidInOBJID"/>
-  <mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/METS/   http://www.loc.gov/standards/mets/mets.xsd    http://www.loc.gov/mods/v3   http://www.loc.gov/standards/mods/v3/mods-3-3.xsd    http://purl.org/dc/elements/1.1/  http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" OBJID="demo:205" LABEL="Systems Test - Label">
+  <mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/METS/   http://www.loc.gov/standards/mets/mets.xsd    http://www.loc.gov/mods/v3   http://www.loc.gov/standards/mods/v3/mods-3-3.xsd    http://purl.org/dc/elements/1.1/  http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd" OBJID="demo:17" LABEL="Systems Test - Label">
     <mets:dmdSec ID="dmdSec_TEST.id1">
       <mets:mdWrap MIMETYPE="text/xml" MDTYPE="MODS">
         <mets:xmlData>
