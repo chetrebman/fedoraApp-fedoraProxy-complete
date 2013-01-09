@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 University of Denver
+ * Copyright 2012 University of Denver
  * Author Chet Rebman
  * 
  * This file is part of FedoraApp.
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with FedoraApp.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 package edu.du.penrose.systems.exceptions;
 
 /**

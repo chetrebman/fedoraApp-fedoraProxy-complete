@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 University of Denver
+ * Copyright 2012 University of Denver
  * Author Chet Rebman
  * 
  * This file is part of FedoraApp.
@@ -197,19 +197,6 @@ public class FileUtil {
 		return directory.listFiles( new XML_task_fileFilter() );
 	}
 	
-	/**
-	 * Get batch files of type ectdBatchIngest_XXXXXXX.xml
-	 * 
-	 * @see edu.du.penrose.systems.fedoraApp.FedoraAppConstants#BATCH_FILE_IDENTIFIER
-	 * @see edu.du.penrose.systems.fedoraApp.FedoraAppConstants#BATCH_FILE_SUFFIX
-	 * 
-	 * @param directory
-	 * @return return array of batch files names that are part of a local ingest.
-	 */
-	static public String[] getBatchFileList( File directory ){
-
-		return directory.list( new Batch_fileFilter() );
-	}
 	
 	/**
 	 * Get batch files of type batch_XXXXXXX_REMOTE.xml. These files are deposited by fedoraProxy when someone does a remote ingest.
@@ -241,36 +228,7 @@ public class FileUtil {
 		return directory.list( new Task_Batch_fileFilter() );
 	}
 
-	/**
-	 * Filter to find 'batch_' files, will match yyyy(batch_)XXXX.xml ie centralCity_batch_ingest.xml or centralCity_batch_overlay.xml 
-	 * and without the remote file suffix.
-	 * 
-	 * @see edu.du.penrose.systems.fedoraApp.FedoraAppConstants#BATCH_FILE_IDENTIFIER
-	 * @see edu.du.penrose.systems.fedoraApp.FedoraAppConstants#BATCH_FILE_SUFFIX
-	 * @see edu.du.penrose.systems.fedoraApp.FedoraAppConstants#REMOTE_TASK_NAME_SUFFIX
-	 * 
-	 * @author chet
-	 *
-	 */
-	static public class Batch_fileFilter implements FilenameFilter
-	{
-		public boolean accept(File dir, String name) 
-		{			
-			if ( ( name.toLowerCase().contains(FedoraAppConstants.BATCH_FILE_IDENTIFIER) || name.toLowerCase().contains(FedoraAppConstants.BATCH_FILE_IDENTIFIER_2) ) && name.toLowerCase().endsWith( ".xml" )) {
-				
-				if ( name.toLowerCase().contains( FedoraAppConstants.REMOTE_TASK_NAME_SUFFIX.toLowerCase() ) )
-				{
-					return false;
-				}
-				else {
-					return true;
-				}
-			}
-			else {
-				return false;
-			}
-		}       	
-	}
+
 	
 	/**
 	 * Filter to find 'batch_' files, will match yyyy(batch_)XXXX_REMOTE.xml ie centralCity_batch_ingest_REMOTE.xml or 

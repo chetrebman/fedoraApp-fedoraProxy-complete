@@ -89,8 +89,8 @@ public class ECTDjmsListeners-OLD {
 
 	private final String emailIngestSubjectTxt  = "Ectd Ingest Report";
 
-	private String emailSuccessAddress = "chet.rebman@du.edu"; // these are defaults, overridden by properties file.
-	private String emailFailureAddress = "chet.rebman@du.edu";
+	private String emailSuccessAddress = null; // these are defaults, overridden by properties file.
+	private String emailFailureAddress = null;
 	private String emailSuccessAddress_2 = null;
 	private String emailFailureAddress_2 = null;
 

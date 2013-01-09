@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 University of Denver
+ * Copyright 2012 University of Denver
  * Author Chet Rebman
  * 
  * This file is part of FedoraApp.
@@ -106,7 +106,7 @@ public class ProgramFileProperties extends ProgramProperties  {
 			}
 			if( this.lastFileUpdate != inFile.lastModified() ) 
 			{
-				this.logger.info( "Reloading properties file: " + inFile.getAbsolutePath() );
+				// this.logger.info( "Reloading properties file: " + inFile.getAbsolutePath() );
 				this.myProperties = new Properties(); //needed to ensure update when a property is commented out.
 				this.myProperties.load( new FileInputStream( inFile ) );
 				this.lastFileUpdate = inFile.lastModified();

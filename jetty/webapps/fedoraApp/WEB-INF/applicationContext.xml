@@ -19,7 +19,7 @@
 		<property name="concurrent" value="false" />
 	</bean>
 
-	<bean id="fedoraApTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+	<bean id="fedoraAppTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 		<property name="jobDetail">
 			<ref local="jobDetail" />
 		</property>
@@ -27,14 +27,14 @@
 			<value>10000</value> <!-- 60000 = one minute  10000 worked great -->
 		</property>
 		<property name="repeatInterval"> 
-			<value>15000</value>
+			<value>150000</value> <!--15000 works great for testing -->
 		</property>
 	</bean>
 
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<ref bean="fedoraApTrigger" />
+				<ref bean="fedoraAppTrigger" />
 			</list>
 		</property>
 	</bean>

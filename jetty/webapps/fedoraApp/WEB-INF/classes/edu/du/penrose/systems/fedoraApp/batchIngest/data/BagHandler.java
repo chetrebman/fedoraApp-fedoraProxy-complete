@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 University of Denver
+ * Copyright 2012 University of Denver
  * Author Chet Rebman
  * 
  * This file is part of FedoraApp.
@@ -505,6 +505,9 @@ public class BagHandler {
 			}
 			
 			this.batchOptions.setWorkFile( newBatchFileName );
+		}
+		else {
+			throw new Exception( "ERROR: the bag is missing a batch file! (*.xml)" );
 		}
 	}
 

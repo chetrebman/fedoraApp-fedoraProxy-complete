@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 University of Denver
+ * Copyright 2012 University of Denver
  * Author Chet Rebman
  * 
  * This file is part of FedoraApp.
@@ -466,7 +466,7 @@ public class ResourceIndexUtils
 		}
 		catch( Exception e )
 		{		
-			System.out.println( "Warning "+collectionPID+"is not a collection" );
+			//System.out.println( "Warning "+collectionPID+" is not a collection" );
 			// we assume the error is a 404 error caused by this not being a collection.
 		}
 		

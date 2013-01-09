@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 University of Denver
+ * Copyright 2012 University of Denver
  * Author Chet Rebman
  * 
  * This file is part of FedoraApp.
@@ -112,7 +112,7 @@ public class BatchIngestReport {
         long fedoraIngestTime = this.endTime  - this.startFedoraIngestTime;
         long totalIngestTime  = this.endTime  - this.startTime;
         
-        String footer    = "End of Batch Ingest Report:   " + TimeDateUtils.getCurrentTimeMonthDayYearHourMinute() + "Total Time:" +dateFormat2.format(new Date(totalIngestTime))+ "    Fedora Ingest Time: " +dateFormat2.format(new Date(fedoraIngestTime))+ " *********";
+        String footer    = "End of Batch Ingest Report:   " + TimeDateUtils.getCurrentTimeMonthDayYearHourMinute() + " Total Time:" +dateFormat2.format(new Date(totalIngestTime))+ "    Fedora Ingest Time: " +dateFormat2.format(new Date(fedoraIngestTime))+ " *********";
         
         this.logger.info( "\n" +header);
         this.logger.info( "\n" +num_completed_msg );

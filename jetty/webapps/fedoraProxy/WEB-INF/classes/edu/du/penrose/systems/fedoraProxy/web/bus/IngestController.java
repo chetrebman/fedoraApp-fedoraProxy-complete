@@ -1,3 +1,22 @@
+/*
+ * Copyright 2012 University of Denver
+ * Author Chet Rebman
+ * 
+ * This file is part of FedoraProxy.
+ * 
+ * FedoraProxy is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * FedoraProxy is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with FedoraProxy.  If not, see <http://www.gnu.org/licenses/>.
+*/
 package edu.du.penrose.systems.fedoraProxy.web.bus;
 
 import java.io.File;
@@ -28,7 +47,6 @@ import edu.du.penrose.systems.fedoraApp.batchIngest.data.BatchIngestOptions.INGE
 import edu.du.penrose.systems.fedoraApp.batchIngest.data.BatchIngestURLhandler;
 import edu.du.penrose.systems.fedoraProxy.FedoraProxyConstants;
 import edu.du.penrose.systems.util.FileUtil;
-import edu.du.penrose.systems.util.JmsUtils;
 import edu.du.penrose.systems.fedoraApp.util.MetsBatchFileSplitter;
 
 

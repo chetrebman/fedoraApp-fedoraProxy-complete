@@ -1,5 +1,10 @@
 a.b.c   Where a is Major version #, b is Minor version #, c is Bug fix # 
 
+1.61 1-7-2012
+    Add test PID to batchIngest.properties that is used to test that we are logged in. This was mistakenly removed in version 1.60
+    Remove logging every time a properties file is read
+    Add error check for a bag missing a batch file (must end with '.xml' )
+    
 1.60 10-08-2012
     Add null check in edu.du.penrose.systems.fedoraApp.util.FedoraAppUtil.getRemoteConfiguredInstitutions(), it was choking on a lost+found directory
     Improve logging in edu.du.penrose.systems.fedoraApp.tasks.WorkerTimer.doIt() 

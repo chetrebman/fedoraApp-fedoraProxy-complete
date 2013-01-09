@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 University of Denver
+ * Copyright 2012 University of Denver
  * Author Chet Rebman
  * 
  * This file is part of FedoraApp.
@@ -20,28 +20,19 @@
 
 package edu.du.penrose.systems.fedoraApp.web.bus.security;
 
-import java.net.URL;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.axis.types.NonNegativeInteger;
-import org.fcrepo.server.types.gen.ComparisonOperator;
-import org.fcrepo.server.types.gen.Condition;
-import org.fcrepo.server.types.gen.FieldSearchQuery;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import com.google.gwt.rpc.client.impl.RemoteException;
 
 import edu.du.penrose.systems.fedoraApp.FedoraAppConstants;
-import edu.du.penrose.systems.fedoraApp.batchIngest.bus.FedoraAppBatchIngestController;
+import edu.du.penrose.systems.fedoraApp.ProgramProperties;
 import edu.du.penrose.systems.fedoraApp.util.FedoraAppUtil;
 import edu.du.penrose.systems.fedora.client.Administrator;
-import edu.du.penrose.systems.fedoraApp.ProgramProperties;
-import edu.du.penrose.systems.fedora.client.objecteditor.Util;
-import edu.du.penrose.systems.util.MyServletContextListener;
 
 public class LoginFedoraFormController  extends SimpleFormController {
     
@@ -71,9 +62,12 @@ public class LoginFedoraFormController  extends SimpleFormController {
         
         Administrator   administrator = null;
             
-        try {            
+        try { 
+        	ProgramProperties progProp = ProgramProperties.getInstance( FedoraAppConstants.getServletContextListener().getProgramPropertiesURL() );   
+        	String testPid = progProp.getProperty( FedoraAppConstants.BATCH_INGEST_VALID_PID_FOR_FEDORA_CONNECTION_TEST_PROPERTY );
             administrator = FedoraAppUtil.getAdministrator(host, port, userName, password);           
         
+            administrator.getAPIM().getDatastream( testPid, "DC", null);
             this.logger.info( "Sucessfull Fedora login for user:"+userName);
                 // user considered logged in once the Administrator session object is set.
             request.getSession().setAttribute( FedoraAppConstants.FEDORA_USERNAME_SESSION_VARIBLE, userName );
