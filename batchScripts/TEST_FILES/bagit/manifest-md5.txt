@@ -1,5 +1,4 @@
 e1234a778bf9de0913725b4a89c84ffc  data/diver-with-manatee-trichechus-manatus-latirostris_access.jpg
-7e5d3758aaa8899989748c0805fe9151  data/bagit.xml
 0147f33245d3fe15493a359f16884ad2  data/diver-with-manatee-trichechus-manatus-latirostris.jpg
 bfd6b56ca98250ce87ca48d05c6fad10  data/aquatic-mammals-manatee-trichechus-manatus-latirostris_access.jpg
 71497828aac196e266e232958fc59f45  data/close-up-image-of-manatee-underwater.jpg
@@ -9,3 +8,4 @@ b48b01d369a552f41e336e5fd280675d  data/a-snorkeler-swims-with-florida-manatee_ac
 618109d193ee0f9b230b1154eb91649b  data/a-snorkeler-swims-with-florida-manatee.jpg
 f9f08c94bfb9c6013ba5006cf8e2945e  data/aquatic-mammals-manatee-trichechus-manatus-latirostris.jpg
 c39369758784cadb1220258a732cc95e  data/aquatic-animal-mammal-underwater-manatee_access.jpg
+7e5d3758aaa8899989748c0805fe9151  data/batch.xml

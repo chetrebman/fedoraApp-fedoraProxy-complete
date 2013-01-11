@@ -13,7 +13,7 @@
    <mets:dmdSec ID="dmdAlliance">
       <mets:mdWrap MIMETYPE="text/xml" MDTYPE="OTHER" LABEL="CustomAlliance Metadata">
          <mets:xmlData>
-            <islandora collection="demo:fedoraAppDemoCollection" contentModel="demo:fedoraAppCM" />
+            <islandora collection="demo:fedoraAppCollection" contentModel="demo:fedoraAppCM" />
          </mets:xmlData>
       </mets:mdWrap>
    </mets:dmdSec>

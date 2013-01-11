@@ -8,7 +8,7 @@ batchSpaceDirectory=`pwd`/../batch_space
 # T means this is an islandora install, ie objects will assigned to a collection and a content model.
 #  specified in a batchIngest_REMOTE.properties file. 
 
-islandora="f"
+islandora="t"
 
 fedoraNamespace="demo"
 batchSetName="fedoraAppDemoCollection"
