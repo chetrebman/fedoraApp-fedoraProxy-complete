@@ -200,7 +200,7 @@ if ( batch_set == null )
 	<table align="center">
 			<tr>
 				<td  align="center"  colspan="2" >
-					<blink><b><font color="red">WARNING: Access to Handle Server is DISABLED.</font></b></blink>
+					<b><font color="red">WARNING: Access to Handle Server is DISABLED.</font></b>
 				</td>
 			</tr>
 	</table>
