@@ -50,7 +50,7 @@ class CreatePid_in_OBJID_BatchFIle {
 //		pids[5]="codu:6"
 //		pids[6]="codu:7"
 		
-		println  objIdCount+" PIDs Reserverd\nWriting new batch file using the reserved PIDs in the <mets:mets> OBJID attributes"
+		println  "\n****************\n"+objIdCount+" PIDs Reserved.\nWriting new batch file using the reserved PIDs in the <mets:mets> OBJID attributes."
 		
 		lines = inputFile.readLines()
 		objIdCount = 0;
