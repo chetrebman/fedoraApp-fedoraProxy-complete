@@ -30,7 +30,7 @@ class CreatePid_in_OBJID_BatchFIle {
 		int objIdCount = 0;
 		for ( String line in lines )
 		{
-			if ( line.contains( "OBJID") )
+			if ( line.contains( " OBJID") )
 			{
 				objIdCount += 1;
 			}

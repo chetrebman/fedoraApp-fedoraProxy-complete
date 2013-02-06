@@ -223,8 +223,8 @@ class FedoraAppProxyDistInstall {
 		println "5 fedoraApp Fedora Password="+newPassword
 		println "6 fedoraProxy Fedora User="+fpNewUser
 		println "7 fedoraProxy Fedora Password="+fpNewPassword
-		println "8 Islandora ingest t/f" + islandora
-		println "\n9 vi Disable Hander Server t/f" +disableHandleServer
+		println "8 Islandora ingest t/f " + islandora
+		println "\n9 Disable Hander Server t/f " +disableHandleServer
 		println "\n10 World Handles Server="+worldHandleServer
 		println "11 Handle Server host="+handleServerHost
 		println "12 Handle Server Port="+handleServerPort

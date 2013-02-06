@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
-    <meta charset="utf-8">
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
     <title>fedoraApp/fedoraProxy ingest tutorial</title>
   </head>
   <body>
@@ -24,7 +23,7 @@ Ingester
       <li><a href="#mozTocId598345">fedoraApp Ingester and fedoraProxy Quick
           Start Tutorial</a>
         <ol>
-          <li><a href="#What_this_is...">what is this?</a></li>
+          <li><a href="#What_this_is...">What is this?</a></li>
           <li><a href="#mozTocId628294">First </a></li>
           <li><a href="#mozTocId107913">Simple Fedora Ingest </a></li>
           <li><a href="#mozTocId757109">Ingest that assigns a Collection and a
@@ -77,18 +76,20 @@ Ingester
     directory}/FedoraApp_FedoraProxy_distribution/jetty/<br>
     &nbsp;&nbsp;&nbsp;&nbsp; ./start_jetty.sh <br>
     <br>
-    <b>TERMS:</b><br>
+    <b>DEFINITIONS:</b><br>
     <br>
-    <b>&nbsp;&nbsp;&nbsp; PCO</b> Stands for Primary Content Object and is the
-    image, pdf, wav, mp4 etc for the digital object.<br>
+    <b>&nbsp;&nbsp;&nbsp; <a id="PCO definition">PCO</a></b> Stands for Primary
+    Content Object and is the image, pdf, wav, mp4 etc for the digital object.<br>
     <br>
     <b></b><br>
     <br>
     <hr>
     <h1 align="center">TUTORIAL</h1>
     <br>
-    <b>NOTE: If you perform the tutorial in order, from start to finish, it will
-      probably work, otherwise YMMV :)</b><br>
+    <div style="text-align: center;"><b>If you perform the tutorial in order,
+        from start to finish, it will probably work, otherwise YMMV :)</b></div>
+    <br>
+    <br>
     <hr style="width: 100%; height: 2px;"><br>
     <h2><a class="mozTocH2" name="mozTocId107913"></a>Simple Fedora Ingest </h2>
     (good first step to make sure everything is working)<br>
@@ -571,22 +572,22 @@ filePath=a-bear-in-the-bushes-ursus-americanus_access.jpg,
     without assigning them to a collection or a Content-Model (a properties file
     setting). Or the <a href="#Important_Files">Resource Index</a> library can
     be modified to make it work with another type of frontend that has unique
-    REL-EXT definitions for Collection and Content-Model. The digital objects
+    REL-EXT requirements for Collection and Content-Model. The digital objects
     are described using <a href="http://www.loc.gov/standards/mets/">METS</a>
     and <a href="http://www.loc.gov/standards/mods/">MODS</a> with a
-    &lt;batch&gt; wrapper that allows the ingest of a single object to
-    thousands. The MODS describes the data object and the METS links it to the
-    individual PCOs (Primary Content Objects) ie graphics, movies, PDFs etc.
-    FedoraApp began in 2008 and therefore uses the older Fedora Client
-    libraries, it has however been tested with Fedora 3.6.2. The newer
-    additions, for Islandora, use the REST interface to connect to the resource
-    index. <br>
+    &lt;batch&gt; element wrapper, allowing for the ingest of a single object or
+    hundreds&nbsp; of objects . The MODS describes the data object and the METS
+    links it to the individual <a href="#PCO%20definition">PCOs</a> (Primary
+    Content Objects) ie graphics, movies, PDFs etc. FedoraApp began in 2008 and
+    therefore uses the older Fedora Client libraries, it has however been tested
+    with Fedora 3.6.2. The newer additions, for Islandora, use the REST
+    interface to connect to the resource index. <br>
     <br>
     &nbsp;&nbsp;&nbsp; <span style="font-style: italic;">FedoraApp has the
       following type of ingests...</span><br style="font-style: italic;">
     <ul>
-      <li><span style="font-style: italic;"><b>normal</b> </span>- manual where
-        the user accesses fedoraApp through the web GUI and selects the
+      <li><span style="font-style: italic;"><b>normal</b></span> <b>manual</b>
+        - the user accesses fedoraApp through the web GUI and selects the
         institution/namespace, collection (if using) and content-model (if
         using). The user can also use the GUI for the viewing of remote ingests.
         The web GUI allows for the setting of a number of options, remote
@@ -600,9 +601,9 @@ filePath=a-bear-in-the-bushes-ursus-americanus_access.jpg,
         works for remote and manual ingests, the PID is contained within each
         individual &lt;mets:mets OBJID="PID"</li>
       <li><b><span style="font-style: italic;">Updates of metadata</span></b> -
-        manual and remote.</li>
+        works for manual and remote.</li>
       <li><b><span style="font-style: italic;">Updates of PCO</span></b> (the
-        primary content object, image etc.) - manual and remote.<br>
+        primary content object, image etc.) - works for manual and remote.<br>
       </li>
     </ul>
     <br>
@@ -612,13 +613,10 @@ filePath=a-bear-in-the-bushes-ursus-americanus_access.jpg,
       directory tree</a>. A FedoraApp application running on the same server
     detects and processes these files via a background process and performs the
     ingest. FedoraProxy also allows for connecting to fedora to retrieve
-    datastreams and to connect to a SOLR index that are behind a firewall (this
-    tutorial doesn't talk much about that, but the code is simple).<br>
+    datastreams and to connect to a SOLR index when Fedora and SOLR are behind a
+    firewall (this tutorial doesn't talk much about that, but the code is
+    simple).<br>
     <br>
-    <b>TERMS:</b><br>
-    <br>
-    <b>&nbsp;&nbsp;&nbsp; PCO</b> Stands for Primary Content Object and is the
-    image, pdf, wav, mp4 etc for the digital object<br>
     <br>
     <a href="#First">Back to Tutorial</a><br>
     <br>

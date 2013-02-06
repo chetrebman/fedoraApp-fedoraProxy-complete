@@ -42,10 +42,10 @@
        <!-- 
            'du' is needed to match the <url-pattern>/du/*</url-pattern> in WEB-INF/web.xml 'demo' is 
             the insitution/namespace in the batch_space directory tree
-           'demoCollection' is the batch set in the batch_space directory tree. 
+           'fedoraAppDemoCollection' is the batch set in the batch_space directory tree. 
        --> 
 
-       <security:intercept-url pattern="/du/demo/demoCollection/**"   access="ROLE_demo" />
+       <security:intercept-url pattern="/du/demo/fedoraAppDemoCollection/**"   access="ROLE_demo" />
 
     </security:http>
 	
